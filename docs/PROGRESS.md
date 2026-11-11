@@ -49,3 +49,14 @@ La scheda **Stanza** ora apre una **illustrazione completa dell'ambiente arredat
 Lo script e la stanza vengono aggiornati direttamente su `main`, senza modifiche al repository `Neliel`.
 
 Verifiche: test locali Chromium su layout mobile e desktop per visibilità stanza, click scrivania e interruttore luce; codice finale pubblicato con gli stessi componenti, ma browser reale su GitHub Pages e prestazioni del telefono non verificati.
+
+
+## Alpha 0.5 — scena ambiente indipendente (11 novembre 2026)
+
+**Implementato e pubblicato:** nuovo asset `assets/aetheria-room-empty-v05.svg`, un panorama illustrato originale che mostra letto, scrivania, monitor, finestra notturna, divano, libreria e luci **senza il personaggio incorporato**. Aprendo la scheda `Stanza`, l'app nasconde la precedente illustrazione con Aetheria e usa il nuovo panorama. Tornando alla scheda `Dialogo`, resta disponibile la scena Companion preesistente. Controlli e hotspot di stanza preservati.
+
+Commit asset: `e0bb8f1fc9cb732379ebbf26037a020eb8e5c5da`. Commit interfaccia: `25df73237882edf34f6aa5b1deb7dbeeb0b6ab0e`.
+
+**Verificato:** asset SVG e indice leggibili dal repository; l'HTML non contiene più riferimenti al precedente asset `aetheria-room-v04.webp`; il job GitHub Pages del commit 0.5 è terminato con esito `success`.
+
+**Limiti:** si tratta di un'illustrazione vettoriale tecnica della stanza, non ancora di una stanza semi-realistica definitiva. La figura non è visibile nella vista vuota e non esiste ancora come sprite separato con rig; nessun movimento o interazione fisica reale. Render su dispositivo Android non verificato in questo turno. Il prossimo step è sostituire il panorama tecnico con fondale artistico coerente e costruire il personaggio a livelli indipendenti.

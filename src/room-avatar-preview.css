@@ -1,0 +1,40 @@
+/* Aetheria alpha 0.6: independently rendered character above the separate room panorama.
+   Concept art is NOT a skeletal rig and has NOT been approved as the final identity. */
+#room-v04 .room-avatar-anchor {
+  --room-avatar-x: 48%; --room-avatar-bottom: 3%; --room-avatar-scale: 1;
+  position: absolute; left:var(--room-avatar-x); bottom:var(--room-avatar-bottom);
+  width:25%; z-index:3; pointer-events:none; opacity:1;
+  transform:translateX(-50%) scale(var(--room-avatar-scale)); transform-origin:center bottom;
+  transition:left .85s cubic-bezier(.22,.74,.28,1), bottom .85s ease,
+             transform .85s ease, opacity .35s ease;
+  filter:drop-shadow(0 12px 13px rgba(7,4,18,.55));
+}
+#room-v04 .room-avatar-anchor[hidden] {display:none!important;}
+#room-v04 img.room-avatar-art {
+  display:block; width:100%; height:auto; object-fit:contain;
+  animation:aetheria-avatar-idle 5.8s ease-in-out infinite; transform-origin:50% 62%;
+}
+#room-v04 .room-avatar-floor-shadow {
+  display:block; position:absolute; left:26%; bottom:1%; width:51%; height:2.6%;
+  z-index:-1; border-radius:50%;background:rgba(8,5,20,.45);filter:blur(9px);
+}
+@keyframes aetheria-avatar-idle {
+  0%,100%{transform:translateY(0) scaleY(1);} 50%{transform:translateY(-.55%) scaleY(1.003);}
+}
+.avatar-preview-controls {border:1px solid rgba(var(--accent-rgb),.35);border-radius:13px;padding:12px;margin-top:15px;background:rgba(22,13,39,.64)}
+.avatar-preview-row {display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+.avatar-preview-row label {font-size:13px;color:#f5eaff;display:flex;align-items:center;gap:9px;cursor:pointer;}
+.avatar-preview-row input {accent-color:var(--accent);width:19px;height:19px;}
+.avatar-preview-preset {display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.avatar-preview-preset button {font-size:11px;background:#251b38;border:1px solid #75608d;color:#eee8f4;border-radius:9px;padding:8px 10px;}
+.avatar-preview-preset button[aria-pressed="true"] {border-color:var(--accent);background:rgba(var(--accent-rgb),.25);color:#fff;}
+.avatar-preview-detail {font-size:11px;color:#bcb0ce;line-height:1.5;margin:9px 0 0;}
+@media(max-width:650px){
+  /* Enlarge the stage illustration slightly on a phone without causing horizontal page scrolling. */
+  .scene.room-display #room-v04 {width:min(155vw,610px);top:49%;}
+  #room-v04 .room-avatar-anchor{width:27%;}
+}
+@media(prefers-reduced-motion: reduce) {
+  #room-v04 .room-avatar-anchor {transition:none;}
+  #room-v04 img.room-avatar-art {animation:none;}
+}

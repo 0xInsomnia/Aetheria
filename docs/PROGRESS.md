@@ -60,3 +60,10 @@ Commit asset: `e0bb8f1fc9cb732379ebbf26037a020eb8e5c5da`. Commit interfaccia: `2
 **Verificato:** asset SVG e indice leggibili dal repository; l'HTML non contiene più riferimenti al precedente asset `aetheria-room-v04.webp`; il job GitHub Pages del commit 0.5 è terminato con esito `success`.
 
 **Limiti:** si tratta di un'illustrazione vettoriale tecnica della stanza, non ancora di una stanza semi-realistica definitiva. La figura non è visibile nella vista vuota e non esiste ancora come sprite separato con rig; nessun movimento o interazione fisica reale. Render su dispositivo Android non verificato in questo turno. Il prossimo step è sostituire il panorama tecnico con fondale artistico coerente e costruire il personaggio a livelli indipendenti.
+
+
+## Alpha 0.6 — prototipo personaggio sovrapposto (11 novembre 2026)
+
+Creato il file originale generato e isolato **\`assets/aetheria-character-concept-v06.webp\`** (trasparenza), e aggiunti **\`src/room-avatar-preview.css\`** e **\`src/room-avatar-preview.mjs\`**. Nella scheda Stanza, l'avatar può apparire come livello separato dal fondale e viene posizionato in quattro zone (centro, letto, scrivania, divano); è possibile mostrarlo o nasconderlo e la preferenza viene conservata localmente. La scena Dialogo continua a usare il concept storico.
+
+**Nessuna animazione articolata:** la figura è un unico ritaglio raster, lo spostamento è una traslazione e le piccole oscillazioni sono effetti sul frame completo. Il ritaglio ha difetti visivi e la figura non è ancora fedele al master approvato (in particolare orecchie umane). È uno *stand-in tecnico* da sostituire, non un modello finale. Sono stati verificati caricamento immagine, posizionamento, hide/show e assenza di errori JS in fixture Chromium 1280×900 e 390×844. Il deploy Pages e il dispositivo Android fisico richiedono verifica separata. Vedi docs/CHARACTER_PREVIEW_V06.md.

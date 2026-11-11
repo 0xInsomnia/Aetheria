@@ -49,3 +49,8 @@ Lo script e la stanza vengono aggiornati direttamente su `main`, senza modifiche
 Apri [Aetheria su GitHub Pages](https://0xinsomnia.github.io/Aetheria/?v=0.5) e passa alla scheda **Stanza**. Ora l'ambiente è disegnato in un file SVG indipendente `assets/aetheria-room-empty-v05.svg`, senza Aetheria seduta o sdraiata nell'immagine: letto, monitor, libreria, divano, finestra e luci sono elementi del fondale. La scheda **Dialogo** conserva la scena originale del personaggio. Gli hotspot e i comandi ambientali restano dimostrativi.
 
 Questa è una **panoramica tecnica vettoriale** e non la stanza semi-realistica finale. Aetheria non è ancora uno sprite separato e non cammina nella stanza. Vedi [docs/PROGRESS.md](docs/PROGRESS.md) per le verifiche effettuate.
+
+
+## Alpha 0.6 — figura separata nella stanza
+
+Una prima figura raster provvisoria è ora **indipendente** dal panorama della stanza. Apri la scheda **Stanza**, usa il controllo **Mostra Aetheria nella stanza** e scegli Centro, Letto, Scrivania o Divano per verificare il posizionamento. La figura non cammina: si tratta soltanto di transizioni di posizione e di una lieve oscillazione dell'immagine completa. Non c'è ancora un rig articolato, e il design provvisorio non rispetta ancora tutti i dettagli approvati (inclusa la forma delle orecchie). Le immagini originali dell'utente non sono state pubblicate. [Dettagli e verifiche](docs/CHARACTER_PREVIEW_V06.md).

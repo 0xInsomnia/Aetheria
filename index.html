@@ -66,6 +66,37 @@
     @media(max-width:450px) { .scene,.scene-content {min-height:66svh;height:66svh;} .brand-name {font-size:30px;} .brand-sub {font-size:10px;} .scene-note {font-size:10px;} .panel {padding:14px;} }
     @media(prefers-reduced-motion:reduce) {*,*::before,*::after {animation:none !important;transition:none !important;scroll-behavior:auto !important;} }
   </style>
+  <style>
+/* Aetheria Alpha 0.2: scene layers, framing, lighting and interaction affordances */
+.scene { --stage-light-opacity: .34; }
+.stage-backdrop { position:absolute; inset:-20px; z-index:0; background:linear-gradient(180deg,#120e24aa,#16112344),url('./aetheria-scene.webp') center/cover no-repeat; filter:blur(24px) brightness(.65); transform:scale(1.1); pointer-events:none; }
+.scene::before { opacity:var(--stage-light-opacity); z-index:2; }
+.scene-picture { z-index:1; will-change:transform; }
+.scene[data-view="full"] .scene-picture { object-fit:contain; object-position:center center; }
+.scene[data-view="cinema"] .scene-picture { object-fit:cover; object-position:50% 23%; }
+.scene[data-view="portrait"] .scene-picture { object-fit:cover; object-position:center 9%; transform:scale(1.35); transform-origin:50% 18%; }
+.scene[data-view="portrait"].wave .scene-picture { transform:scale(1.36) translate(-3px,-4px); }
+.scene[data-view="portrait"].think .scene-picture { transform:scale(1.34) rotate(.45deg); }
+.scene[data-view="portrait"].relax .scene-picture { transform:scale(1.33) translateY(5px); }
+.stage-air { position:absolute; inset:0; z-index:3; pointer-events:none; overflow:hidden; }
+.floating-petal { --x:50%; --delay:0s; --duration:17s; --drift:22px; position:absolute; left:var(--x); top:-7%; width:9px;height:15px;border-radius:90% 10% 80% 20%;background:linear-gradient(130deg,#f9dcff,#9f63cd);opacity:0;filter:drop-shadow(0 0 8px #b26df7);animation:petal-fall var(--duration) var(--delay) linear infinite; }
+@keyframes petal-fall { 0% { opacity:0; transform:translate3d(0,-12px,0) rotate(0); } 7% {opacity:.7;} 90% {opacity:.55;} 100% {opacity:0;transform:translate3d(var(--drift),110vh,0) rotate(400deg);} }
+.scene.no-particles .floating-petal {display:none;}
+.touch-spark { position:absolute; z-index:8; color:#f4cbff; font-size:23px; transform:translate(-50%,-50%); pointer-events:none; text-shadow:0 0 12px #c285f5;animation:touch-float .85s ease-out forwards; }
+@keyframes touch-float { from {opacity:1;transform:translate(-50%,-50%) scale(.7);} to {opacity:0;transform:translate(-50%,-125%) scale(1.4);} }
+.stage-controls {position:absolute;top:26px;right:24px;z-index:6;display:flex;gap:6px;max-width:calc(100% - 180px);border:1px solid rgba(240,224,255,.28);padding:5px;background:rgba(17,10,33,.75);border-radius:15px;backdrop-filter:blur(12px);box-shadow:0 10px 25px #0007;}
+.view-choice {display:flex;gap:6px;align-items:center;border:0;background:transparent;color:#e6d8f9;padding:8px 10px;border-radius:10px;font-size:12px;white-space:nowrap;}
+.view-choice[aria-pressed="true"] {background:rgba(var(--accent-rgb),.32);box-shadow:inset 0 0 0 1px var(--accent);color:white;}
+.visual-options {margin-top:18px;padding-top:4px;border-top:1px solid rgba(255,255,255,.09);}
+.visual-light-row {display:grid;grid-template-columns:1fr 110px 43px;align-items:center;gap:8px;font-size:12px;color:#d4c8e7;margin-bottom:15px;}
+.visual-light-row input {accent-color:var(--accent);width:100%;min-width:0;}
+.visual-light-row output {font-variant-numeric:tabular-nums;text-align:right;}
+.visual-motion-row {display:flex;align-items:center;gap:9px;color:#d4c8e7;font-size:12px;margin:8px 0 14px;cursor:pointer;}
+.visual-motion-row input {accent-color:var(--accent);width:17px;height:17px;}
+@media(max-width:650px){.stage-controls {top:19px;right:12px;padding:3px;max-width:62%;gap:0;} .view-choice {padding:6px 8px;font-size:11px;} .view-label {display:none;} .visual-light-row {grid-template-columns:1fr 96px 40px;} }
+@media(prefers-reduced-motion:reduce){.floating-petal,.touch-spark{animation:none!important;display:none;}}
+
+</style>
 </head>
 <body>
 <div class="app">
@@ -76,13 +107,13 @@
       <div class="scene-bottom">
         <div class="status"><span class="live-dot"></span> Prototipo interattivo · offline</div>
         <div class="message-banner"><strong id="scene-title">Una presenza, una storia.</strong><span id="scene-message">Benvenuto. Possiamo iniziare dalle piccole cose, un gesto alla volta.</span></div>
-        <div class="scene-note">Illustrazione concept: i movimenti attuali sono transizioni dell'immagine, non un rig articolato.</div>
+        <div class="scene-note">Alpha 0.2: livelli d’atmosfera e tre inquadrature. Il personaggio non è ancora un rig articolato.</div>
       </div>
     </div>
   </main>
   <aside class="sidebar" aria-label="Controlli della companion">
-    <div class="topline"><h1>Il tuo spazio</h1><span class="tag">ALPHA 0.1</span></div>
-    <p class="intro">Atmosfera semi-realistica, interazioni iniziali e temi indipendenti. La versione animata a livelli è la prossima tappa.</p>
+    <div class="topline"><h1>Il tuo spazio</h1><span class="tag">ALPHA 0.2</span></div>
+    <p class="intro">Atmosfera semi-realistica, interazioni iniziali e temi indipendenti. Ora puoi regolare inquadratura, luce e particelle; il rig articolato resta in sviluppo.</p>
     <nav class="tabs" aria-label="Sezioni"><button type="button" data-tab="chat" class="active" aria-selected="true">Dialogo</button><button type="button" data-tab="actions" aria-selected="false">Azioni</button><button type="button" data-tab="style" aria-selected="false">Stile</button></nav>
     <section class="panel" data-panel="chat">
       <h2>Conversazione <span aria-hidden="true">✧</span></h2>
@@ -135,6 +166,128 @@
   $('clear').addEventListener('click',()=>{chat=[{from:'aetheria',text:'Conversazione azzerata su questo dispositivo.'}];store('chat',chat);drawChat();});
   $('speak').addEventListener('click',()=>{const speech=window.speechSynthesis;if(!speech){message.textContent='La sintesi vocale non è disponibile in questo browser.';return;}speech.cancel();const last=[...chat].reverse().find(x=>x.from==='aetheria');const utterance=new SpeechSynthesisUtterance(last?.text||message.textContent);utterance.lang='it-IT';utterance.rate=.95;speech.speak(utterance);});
   drawChat();
+</script>
+<script>
+/* Aetheria Alpha 0.2: visual stage controls. No AI or articulated sprite is claimed. */
+(() => {
+  'use strict';
+  const stage = document.getElementById('scene');
+  const photo = stage?.querySelector('.scene-picture');
+  const stylePanel = document.querySelector('[data-panel="style"]');
+  if (!stage || !photo || !stylePanel) return;
+  const storageKey = 'aetheria.visual-v02';
+  const views = ['full','cinema','portrait'];
+  const defaultPrefs = { view: 'full', intensity: 34, particles: true };
+  let prefs = { ...defaultPrefs };
+  try {
+    const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+    if (saved && typeof saved === 'object') prefs = { ...prefs, ...saved };
+  } catch (_) {}
+  const save = () => { try { localStorage.setItem(storageKey, JSON.stringify(prefs)); } catch (_) {} };
+  const make = (tag, props = {}, text = '') => {
+    const e = document.createElement(tag);
+    Object.entries(props).forEach(([key, value]) => {
+      if (key === 'className') e.className = value;
+      else if (key.startsWith('data-')) e.setAttribute(key, value);
+      else if (key === 'type') e.type = value;
+      else e.setAttribute(key, value);
+    });
+    if (text) e.textContent = text;
+    return e;
+  };
+
+  // Separate backdrop and foreground atmospheric layer, without modifying source artwork.
+  const backdrop = make('div', { className: 'stage-backdrop', 'aria-hidden': 'true' });
+  stage.insertBefore(backdrop, photo);
+  const air = make('div', { className: 'stage-air', 'aria-hidden': 'true' });
+  stage.appendChild(air);
+  const controls = make('div', { className: 'stage-controls', role: 'group', 'aria-label': 'Inquadratura della scena' });
+  [
+    ['full', 'Figura intera', '↕'],
+    ['cinema', 'Scena', '◇'],
+    ['portrait', 'Dettaglio', '◉']
+  ].forEach(([id, name, icon]) => {
+    const b = make('button', { type: 'button', className: 'view-choice', 'data-view': id, 'aria-label': name }, icon);
+    const sr = make('span', { className: 'view-label' }, name);
+    b.appendChild(sr);
+    b.addEventListener('click', () => setView(id));
+    controls.appendChild(b);
+  });
+  stage.appendChild(controls);
+
+  const visualPanel = make('div', { className: 'visual-options' });
+  const label = make('span', { className: 'label' }, 'Atmosfera e movimento');
+  const lightRow = make('div', { className: 'visual-light-row' });
+  const lightLabel = make('label', { for: 'ambient-intensity' }, 'Intensità luce colorata');
+  const light = make('input', { id: 'ambient-intensity', type: 'range', min: '0', max: '100', step: '5' });
+  const lightValue = make('output', { for: 'ambient-intensity', id: 'ambient-value' });
+  lightRow.append(lightLabel, light, lightValue);
+  const motionRow = make('label', { className: 'visual-motion-row' });
+  const toggle = make('input', { id: 'aetheria-particles', type: 'checkbox' });
+  const toggleText = make('span', {}, 'Petali e particelle in movimento');
+  motionRow.append(toggle, toggleText);
+  visualPanel.append(label, lightRow, motionRow);
+  const explanation = make('p', { className: 'muted' }, 'Inquadratura, luce e particelle sono effetti 2D distinti. La figura è ancora un’illustrazione unica: braccia, occhi e vestiti non sono riggati.');
+  visualPanel.appendChild(explanation);
+  stylePanel.appendChild(visualPanel);
+
+  function setView(id) {
+    if (!views.includes(id)) return;
+    prefs.view = id;
+    stage.dataset.view = id;
+    controls.querySelectorAll('button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.view === id)));
+    save();
+  }
+  function setIntensity(number) {
+    prefs.intensity = Math.max(0, Math.min(100, Math.round(Number(number) || 0)));
+    stage.style.setProperty('--stage-light-opacity', String(prefs.intensity / 100));
+    light.value = String(prefs.intensity);
+    lightValue.textContent = `${prefs.intensity}%`;
+    save();
+  }
+  function setParticles(enabled) {
+    prefs.particles = !!enabled;
+    toggle.checked = prefs.particles;
+    stage.classList.toggle('no-particles', !prefs.particles);
+    save();
+  }
+  light.addEventListener('input', () => setIntensity(light.value));
+  toggle.addEventListener('change', () => setParticles(toggle.checked));
+  setView(views.includes(prefs.view) ? prefs.view : 'full');
+  setIntensity(prefs.intensity);
+  setParticles(prefs.particles);
+
+  // Subtle foreground depth particles, independent from the painted figure and backdrop.
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reducedMotion) {
+    for (let i = 0; i < 13; i++) {
+      const petal = make('span', { className: 'floating-petal' });
+      petal.style.setProperty('--x', `${(i * 37 + 11) % 100}%`);
+      petal.style.setProperty('--delay', `${-(i * 1.7)}s`);
+      petal.style.setProperty('--duration', `${14 + ((i * 7) % 11)}s`);
+      petal.style.setProperty('--drift', `${-28 + (i * 19) % 66}px`);
+      air.appendChild(petal);
+    }
+  }
+  // Tapping the illustrated scene creates a short-lived visual acknowledgment.
+  stage.addEventListener('pointerup', (event) => {
+    if (event.target.closest('button, input, a')) return;
+    const bounds = stage.getBoundingClientRect();
+    const spark = make('span', { className: 'touch-spark', 'aria-hidden': 'true' }, '♡');
+    spark.style.left = `${event.clientX - bounds.left}px`;
+    spark.style.top = `${event.clientY - bounds.top}px`;
+    stage.appendChild(spark);
+    spark.addEventListener('animationend', () => spark.remove(), { once: true });
+    if (reducedMotion) spark.remove();
+  });
+
+  // Expose a tiny read-only diagnostic surface for automated tests.
+  Object.defineProperty(window, 'AetheriaStage', {
+    value: Object.freeze({ version: '0.2.0', getView: () => prefs.view, getLight: () => prefs.intensity }),
+    writable: false, configurable: false
+  });
+})();
+
 </script>
 </body>
 </html>

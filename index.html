@@ -137,11 +137,51 @@
 @media(prefers-reduced-motion:reduce){.room-spot,.room-switch,.room-light{transition:none!important;}}
 
 </style>
+
+<style>
+/* Aetheria alpha 0.4: illustrated, clickable furnished room. */
+.scene.room-display{background:linear-gradient(#130c28aa,#0b0919b9),url('./assets/aetheria-room-v04.webp') center/cover no-repeat}
+.scene.room-display .scene-picture,.scene.room-display .stage-backdrop,.scene.room-display .stage-controls{display:none}
+.scene.room-display .scene-content{z-index:7;pointer-events:none}
+.scene.room-display .room-light{z-index:5}
+.room-v04{display:none;position:absolute;left:50%;top:45%;width:100%;max-height:100%;aspect-ratio:1090/705;transform:translate(-50%,-50%);z-index:4;filter:drop-shadow(0 14px 28px #070512)}
+.scene.room-display .room-v04{display:block}
+.room-v04 img{display:block;width:100%;height:100%;object-fit:contain}
+.room-v04 .photo-spot{position:absolute;border:1px solid #e3c4ffba;border-radius:999px;padding:7px 11px;color:#fff;background:#1c1135e0;font-size:12px;box-shadow:0 6px 18px #000a;text-shadow:0 2px 5px #000;transform:translate(-50%,-50%);cursor:pointer}
+.room-v04 .photo-spot:hover,.room-v04 .photo-spot[aria-pressed=true]{background:rgba(var(--accent-rgb),.83);box-shadow:0 0 0 2px var(--accent),0 4px 22px #000a}
+.room-v04 [data-photo-zone=window]{left:83%;top:15%}
+.room-v04 [data-photo-zone=desk]{left:79%;top:52%}
+.room-v04 [data-photo-zone=lamp]{left:12%;top:35%}
+.room-v04 [data-photo-zone=bed]{left:19%;top:68%}
+.room-plan{height:240px;background:linear-gradient(#08051811,#0b061c77),url('./assets/aetheria-room-v04.webp') 50% 46%/cover no-repeat}
+.room-plan::before,.room-plan::after,.room-plan-window,.room-plan-floor{display:none!important}
+.room-plan .room-spot{min-width:auto;min-height:29px;display:flex;flex-direction:row;gap:4px;padding:6px 10px;font-size:11px;border-radius:99px;background:#170d2adb}
+.room-plan .room-spot-symbol{font-size:13px}
+.room-plan [data-zone=window]{left:82%;top:19%;min-width:0}
+.room-plan [data-zone=desk]{left:79%;top:51%}
+.room-plan [data-zone=lamp]{left:14%;top:33%}
+.room-plan [data-zone=bed]{left:19%;top:75%}
+.room-plan [data-zone=sofa]{left:66%;top:88%}
+.room-modal-v04{background:#100b20;border:1px solid #a77adb;border-radius:18px;padding:12px;color:#f3e7fc;max-width:96vw;width:1200px;max-height:96dvh}
+.room-modal-v04::backdrop{background:#070512e8;backdrop-filter:blur(10px)}
+.room-modal-v04 img{display:block;width:100%;height:auto;max-height:80dvh;object-fit:contain;border-radius:10px}
+.room-modal-v04 p{font-size:12px;text-align:center;color:#cbb9dd}
+.room-modal-v04 button{display:block;margin:0 0 8px auto;color:#fff;background:#4d2c66;border:1px solid #ac82d6;border-radius:9px;padding:9px 14px}
+@media(max-width:650px){.room-v04{top:43%}.room-v04 .photo-spot{font-size:10px;padding:5px 8px}.room-plan{height:225px}.room-plan .room-spot{font-size:10px;padding:5px 7px}.room-plan .room-spot-symbol{display:none}}
+</style>
 </head>
 <body>
 <div class="app">
   <main class="scene" id="scene" aria-label="Scena illustrata di Aetheria">
     <img class="scene-picture" src="./assets/aetheria-scene.webp" alt="Concept provvisorio di una companion anime adulta con capelli argentati, outfit nero e viola, davanti a un paesaggio notturno" />
+
+    <div id="room-v04" class="room-v04" aria-label="Stanza illustrata di Aetheria">
+      <img src="./assets/aetheria-room-v04.webp" alt="Stanza di Aetheria: letto, scaffali, scrivania con monitor, lampada e finestra sulla città notturna" />
+      <button type="button" class="photo-spot" data-photo-zone="lamp" aria-pressed="false">✧ Lampada</button>
+      <button type="button" class="photo-spot" data-photo-zone="window" aria-pressed="false">☾ Finestra</button>
+      <button type="button" class="photo-spot" data-photo-zone="desk" aria-pressed="false">⌘ Scrivania</button>
+      <button type="button" class="photo-spot" data-photo-zone="bed" aria-pressed="false">▰ Letto</button>
+    </div>
     <div class="scene-content">
       <div class="brand"><div class="brand-mark" aria-hidden="true">▽</div><div><div class="brand-name">Aetheria</div><div class="brand-sub">A 2D companion story</div></div></div>
       <div class="scene-bottom">
@@ -151,6 +191,12 @@
       </div>
     </div>
   </main>
+
+<dialog id="aetheria-room-panorama" class="room-modal-v04" aria-label="Panoramica completa della stanza">
+  <button type="button" id="room-modal-close">✕ Chiudi</button>
+  <img src="./assets/aetheria-room-v04.webp" alt="Panoramica della stanza di Aetheria" />
+  <p>Panoramica illustrata: il personaggio non è ancora articolato e gli arredi non sono 3D.</p>
+</dialog>
   <aside class="sidebar" aria-label="Controlli della companion">
     <div class="topline"><h1>Il tuo spazio</h1><span class="tag">ALPHA 0.3</span></div>
     <p class="intro">Atmosfera semi-realistica, interazioni iniziali e temi indipendenti. Ora puoi esplorare una mappa interattiva della stanza, regolare luce e inquadratura. Il rig articolato resta in sviluppo.</p>
@@ -409,6 +455,37 @@
   Object.defineProperty(window,'AetheriaRoom',{value:Object.freeze({version:'0.3.0',getState:()=>({...state}),selectZone}),writable:false,configurable:false});
 })();
 
+</script>
+
+<script>
+/* Aetheria v0.4: keeps original interactions and adds the missing visible room. */
+(() => {
+  const scene=document.getElementById('scene');
+  const modal=document.getElementById('aetheria-room-panorama');
+  const stage=document.getElementById('room-v04');
+  if(!scene||!stage||!modal)return;
+  function switchScene(name){scene.classList.toggle('room-display',name==='room');}
+  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>switchScene(b.dataset.tab)));
+  document.querySelectorAll('[data-photo-zone]').forEach(b=>b.addEventListener('click',()=>{
+    const zone=b.dataset.photoZone;
+    document.querySelector('.room-plan [data-zone="'+zone+'"]')?.click();
+    document.querySelectorAll('[data-photo-zone]').forEach(x=>x.setAttribute('aria-pressed',String(x.dataset.photoZone===zone)));
+  }));
+  document.getElementById('room-camera')?.addEventListener('click',()=>modal.showModal());
+  document.getElementById('room-modal-close')?.addEventListener('click',()=>modal.close());
+  modal.addEventListener('click',e=>{if(e.target===modal)modal.close();});
+  const copy=document.querySelector('[data-panel=room] .room-disclaimer');
+  if(copy)copy.textContent='La stanza ora è illustrata e contiene oggetti selezionabili. Per il momento è un’immagine statica: camminata, seduta e arredi modificabili richiederanno sprite e livelli grafici separati.';
+  const note=document.querySelector('.scene-note');if(note)note.textContent='Alpha 0.4: stanza visibile e punti interattivi. Il personaggio non è ancora riggato.';
+  const desc=document.querySelector('[data-panel=room] > p.muted');if(desc)desc.textContent='Questa è la stanza illustrata. Tocca un arredo nella scena o nella sua anteprima per interagire.';
+  const camera=document.getElementById('room-camera');if(camera)camera.textContent='◩ Apri la panoramica della stanza';
+  const alpha=document.querySelector('.tag');if(alpha)alpha.textContent='ALPHA 0.4';
+  const intro=document.querySelector('.intro');if(intro)intro.textContent='Stanza illustrata con oggetti interattivi, luci indipendenti e chat dimostrativa. Le animazioni articolate arriveranno in seguito.';
+  document.querySelector('[data-tab=room]')?.click();
+  document.getElementById('scene-title').textContent='La stanza di Aetheria';
+  document.getElementById('scene-message').textContent='Eccoci qui. Tocca un oggetto oppure apri la panoramica completa.';
+  Object.defineProperty(window,'AetheriaRoomVisual',{value:Object.freeze({version:'0.4.0',visible:()=>scene.classList.contains('room-display')}),configurable:false});
+})();
 </script>
 </body>
 </html>

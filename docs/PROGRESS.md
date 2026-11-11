@@ -1,33 +1,35 @@
-# Aetheria — Registro di avanzamento
+# Aetheria — Registro progressi
 
-## Alpha 0.2 (11 novembre 2026)
+## Alpha 0.3 — 11 novembre 2026
 
-Commit principale: `38282e38aa6425dd3654a052378f41c65fc5eba3`. Correzione percorso sfondo: `6ca2a1aff90ac1ce42d9c4e6107194df3fd8f7f6`.
+### Implementato e pubblicato
 
-### Implementato
+- Scheda **Stanza** con planimetria schematica e cinque zone cliccabili: finestra, scrivania, lampada, divano, letto.
+- Selezione zona con descrizione accessibile e messaggio contestuale nella scena.
+- Controllo lampada con effetto luce indipendente, modalità atmosfera **Notte viola / Luce calda**, pulsante **Inquadra la scena**.
+- Persistenza preferenze stanza mediante `localStorage` sotto la chiave `aetheria.room-v03`.
+- Conservate: chat dimostrativa, transizioni immagine, tre inquadrature, overlay particelle, luce regolabile e palette UI.
+- Creato `src/skeleton2d.mjs`: motore di trasformazioni 2D per futuri livelli separati (poses, interpolazione, keyframes). Per ora è codice **non collegato** alla UI.
 
-- Inquadrature selezionabili: **figura intera**, **scena**, **dettaglio**. Il ritaglio e lo zoom sono transizioni dell'illustrazione completa, non pose articolate.
-- Livelli visuali indipendenti: sfondo sfocato, immagine concept, overlay di luce, particelle animate e feedback al tocco.
-- Intensità luce regolabile 0–100%, interruttore particelle, preferenze salvate in `localStorage`.
-- Mantenuti dialogo simulato, effetti di stato, colori indipendenti UI/ambiente, sintesi vocale browser quando disponibile.
-- Respect del sistema `prefers-reduced-motion` per disabilitare le animazioni decorative.
+### Verifiche eseguite
 
-### Test eseguiti
+- `node --check` per i tre blocchi JavaScript dell'HTML: OK.
+- Chromium headless con asset incorporati per il test, viewport **390 × 844** e **1280 × 900**: scheda stanza e cinque hotspot visibili; selezioni, lampada, luce calda, inquadratura e chat funzionanti; **nessun errore JavaScript**.
+- `node --test` sul motore locale equivalente: quattro test superati; presenti test pubblicati in `tests/skeleton2d.test.mjs`. Da eseguire tramite checkout remoto per validazione del commit pubblicato.
+- Non ancora testato su Android fisico né valutata la coerenza artistica di un vero personaggio a più livelli.
 
-- `node --check` sul nuovo script: superato.
-- Chromium headless, con HTML/CSS/JS e asset incorporati nel test (ambiente blocca le richieste HTTP locali), viewport 390×844 e 1280×900.
-- Passati per entrambe le viewport: scelta modalità dettaglio e figura intera, regolazione luce a 80%, disattivazione particelle, cambio luce rossa, invio messaggio 'ciao' e verifica cronologia; nessun errore JavaScript rilevato.
-- Screenshot locali prodotti per entrambi i viewport. GitHub Pages su telefono fisico **non verificato da questi test**.
+### Problemi aperti
 
-### Da fare — priorità alta
+1. L'illustrazione attuale è **unica**: lo sfondo non è separato dal personaggio.
+2. La **mappa stanza** è uno schematico: oggetti e movimento reale devono ancora essere creati in arte coerente.
+3. L'attuale concept non è ancora conforme alla scelta definitiva delle **orecchie umane**.
+4. Mancano asset del personaggio distinti: volto, occhi, capelli, busto, braccia, gambe, outfit e aree nascoste.
+5. Mancano animazioni articolate, camminata, seduta, posa relax reale, labiale, cambio outfit e AI/voce in ingresso.
 
-1. Nuovo master art coerente con le reference: **orecchie umane**, figura adulta, viso semi-realistico; revisione artistica prima dell'integrazione.
-2. Asset del personaggio a livelli indipendenti (capelli, viso, occhi, braccia, busto, gambe, outfit e dettagli), con porzioni nascoste disegnate.
-3. Rig scheletrico 2D funzionante con pivot e test per idle, occhi e saluto. Questa è la vera soglia tra una demo con immagine e una companion animata.
-4. Espressioni/lip sync e pose dedicate per seduta e camminata.
-5. Maschere di colore per outfit indipendenti da UI e stanza, preset street black/red.
-6. AI e memoria personale solo con backend e protezione adeguata delle credenziali.
+### Prossima priorità
 
-### Confini e privacy
+Costruire un **master art** semi-realistico adulto e una prima sprite sheet a livelli, verificandone coerenza, proporzioni, pivot e capacità di deformazione. Collegare successivamente il nuovo motore `skeleton2d.mjs` alle parti reali del personaggio. Un mockup statico non sarà considerato prova di animazione articolata.
 
-Solo `0xInsomnia/Aetheria`; **Neliel 3D non viene toccata**. Il repository è pubblico: reference originali e dettagli personali non vanno pubblicati. L'illustrazione inserita è un concept provvisorio.
+### Confini
+
+Modifiche esclusivamente in `0xInsomnia/Aetheria`: non toccare `0xInsomnia/Neliel`. Repository pubblico; nessuna reference privata committata.

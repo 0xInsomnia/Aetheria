@@ -38,7 +38,7 @@
     .topline {display:flex;align-items:center;justify-content:space-between;gap:12px;}
     h1 {font:500 25px Georgia,serif;margin:0;} .tag {font-size:11px;border:1px solid #55456d;border-radius:99px;padding:6px 10px;color:#d3c3ef;white-space:nowrap;}
     .intro {color:var(--muted);font-size:13px;line-height:1.65;margin:0;}
-    .tabs {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:5px;border-radius:13px;background:#221b31;border:1px solid #ffffff13;}
+    .tabs {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;padding:5px;border-radius:13px;background:#221b31;border:1px solid #ffffff13;}
     .tabs button {background:transparent;border:0;color:#c7bcd8;border-radius:10px;padding:11px 5px;font-weight:600;font-size:12px;}
     .tabs button.active {background:rgba(var(--accent-rgb),.18);color:#fff;box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),.42);}
     .panel {background:linear-gradient(150deg,#211a31aa,#171322bd);border:1px solid #ffffff18;border-radius:17px;padding:18px;box-shadow:0 12px 28px #0002;}
@@ -97,6 +97,46 @@
 @media(prefers-reduced-motion:reduce){.floating-petal,.touch-spark{animation:none!important;display:none;}}
 
 </style>
+<style>
+
+/* Alpha 0.3: interactive room planning UI. Illustration remains a single composited image. */
+.room-alpha {font-size:9px; font-weight:650; letter-spacing:.08em; color:var(--accent);background:rgba(var(--accent-rgb),.11); border:1px solid rgba(var(--accent-rgb),.4);border-radius:99px;padding:5px 7px;}
+.room-panel h2 {gap:6px;}
+.room-plan {height:292px;position:relative;isolation:isolate;border:1px solid rgba(var(--accent-rgb),.38);border-radius:18px;overflow:hidden;margin:14px 0 12px;background:linear-gradient(170deg,#2b2143 0%,#241c37 31%,#141021 31%,#10101d 100%);box-shadow:inset 0 12px 42px #0008,0 10px 22px #0003;}
+.room-plan::before {content:"";position:absolute;z-index:-1;top:31%;left:-30%;width:160%;height:130%;background:repeating-linear-gradient(0deg,transparent 0 48px,#b59cce21 49px 50px),repeating-linear-gradient(90deg,transparent 0 67px,#b59cce13 68px 69px);transform:perspective(180px) rotateX(36deg);transform-origin:top center;opacity:.72;}
+.room-plan::after {content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 5%,rgba(var(--accent-rgb),.24),transparent 60%);}
+.room-plan-window {position:absolute;top:0;left:29%;height:24%;width:42%;border:5px solid #40354e;border-top:0;border-radius:0 0 8px 8px;background:linear-gradient(#151226,#443568);box-shadow:inset 0 0 25px #847ac653,0 10px 20px #be94e81e;display:grid;place-items:center;color:#d8c9ff;}
+.room-plan-window::after {content:"";position:absolute;top:0;bottom:0;left:50%;width:3px;background:#82749b77;}
+.room-plan-window span {letter-spacing:1rem;font-size:13px;opacity:.72;}
+.room-spot {position:absolute;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-width:92px;min-height:59px;border:1px solid #a68fd36c;border-radius:13px;color:#f7efff;background:linear-gradient(155deg,#3d2e59e8,#211b34d9);box-shadow:0 6px 14px #0907148a, inset 0 1px #ffffff19;font-size:11px;transform:translate(-50%,-50%);transition:box-shadow .2s,background .2s,scale .2s, border-color .2s;}
+.room-spot-symbol {font-size:20px;line-height:1;color:#e0beff;}
+.room-spot[aria-pressed="true"] {background:linear-gradient(145deg,rgba(var(--accent-rgb),.58),#2b1b46);box-shadow:0 0 0 2px var(--accent),0 6px 28px rgba(var(--accent-rgb),.35);border-color:#f4e6ff;scale:1.035;}
+.room-spot[data-zone="window"] {left:50%;top:19%;min-width:100px;}
+.room-spot[data-zone="desk"] {left:23%;top:45%;}
+.room-spot[data-zone="lamp"] {left:78%;top:45%;}
+.room-spot[data-zone="sofa"] {left:28%;top:77%;}
+.room-spot[data-zone="bed"] {left:72%;top:77%;}
+.room-focus {display:flex;flex-direction:column;gap:5px;border-left:2px solid var(--accent);padding:8px 13px;background:rgba(var(--accent-rgb),.09);border-radius:4px 10px 10px 4px;min-height:78px;}
+.room-focus strong {font-size:14px;}.room-focus span {font-size:12px;color:#dfd4ed;line-height:1.55;}
+.room-modes {display:flex;gap:8px;flex-wrap:wrap;}
+.room-toggle-row {display:flex;justify-content:space-between;align-items:center;border-top:1px solid #ffffff16;padding:17px 1px 8px;margin-top:10px;font-size:13px;color:#e7daef;}
+.room-switch {border:1px solid #ad9dc358;background:#30283e;width:48px;height:27px;border-radius:50px;padding:3px;display:flex;align-items:center;transition:background .2s;}
+.room-switch span {width:19px;height:19px;border-radius:99px;background:#c9bed7;display:block;transition:transform .2s;}
+.room-switch[aria-checked="true"] {background:var(--accent);}.room-switch[aria-checked="true"] span {background:#fff;transform:translateX(21px);}
+.room-camera {width:100%;margin-top:14px;padding:12px;}
+.room-disclaimer {padding-top:10px;border-top:1px solid #ffffff18;margin:16px 0 0;}
+.scene .room-light {position:absolute;z-index:2;inset:0;pointer-events:none;opacity:0;background:radial-gradient(ellipse at 7% 70%,#ffce79a6,transparent 43%);mix-blend-mode:screen;transition:opacity .5s;}
+.scene.room-lamp-on .room-light {opacity:.7;}
+.scene.room-warm .room-light {background:radial-gradient(ellipse at 15% 58%,#ffb76ab0,transparent 75%);opacity:.5;}
+.scene.room-warm.room-lamp-on .room-light {opacity:.82;}
+.scene.room-warm .stage-backdrop {filter:blur(24px) brightness(.83) sepia(.28);}
+.scene.room-warm .scene-picture {filter:brightness(1.085) sepia(.12) saturate(.96);}
+.scene.room-warm.relax .scene-picture {filter:brightness(.96) sepia(.12) saturate(.87);}
+.scene.room-lamp-on .live-dot {background:#ffce7a;box-shadow:0 0 12px #ffce7a;}
+@media(max-width:450px){.tabs{grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding:4px;}.tabs button{font-size:11px;padding:10px 1px;}.room-plan{height:270px;}.room-spot{min-width:78px;min-height:55px;font-size:10px;}.room-spot[data-zone="window"]{min-width:93px;}}
+@media(prefers-reduced-motion:reduce){.room-spot,.room-switch,.room-light{transition:none!important;}}
+
+</style>
 </head>
 <body>
 <div class="app">
@@ -107,14 +147,14 @@
       <div class="scene-bottom">
         <div class="status"><span class="live-dot"></span> Prototipo interattivo · offline</div>
         <div class="message-banner"><strong id="scene-title">Una presenza, una storia.</strong><span id="scene-message">Benvenuto. Possiamo iniziare dalle piccole cose, un gesto alla volta.</span></div>
-        <div class="scene-note">Alpha 0.2: livelli d’atmosfera e tre inquadrature. Il personaggio non è ancora un rig articolato.</div>
+        <div class="scene-note">Alpha 0.3: stanza interattiva in prototipo, livelli d’atmosfera e tre inquadrature. Il personaggio non è ancora un rig articolato.</div>
       </div>
     </div>
   </main>
   <aside class="sidebar" aria-label="Controlli della companion">
-    <div class="topline"><h1>Il tuo spazio</h1><span class="tag">ALPHA 0.2</span></div>
-    <p class="intro">Atmosfera semi-realistica, interazioni iniziali e temi indipendenti. Ora puoi regolare inquadratura, luce e particelle; il rig articolato resta in sviluppo.</p>
-    <nav class="tabs" aria-label="Sezioni"><button type="button" data-tab="chat" class="active" aria-selected="true">Dialogo</button><button type="button" data-tab="actions" aria-selected="false">Azioni</button><button type="button" data-tab="style" aria-selected="false">Stile</button></nav>
+    <div class="topline"><h1>Il tuo spazio</h1><span class="tag">ALPHA 0.3</span></div>
+    <p class="intro">Atmosfera semi-realistica, interazioni iniziali e temi indipendenti. Ora puoi esplorare una mappa interattiva della stanza, regolare luce e inquadratura. Il rig articolato resta in sviluppo.</p>
+    <nav class="tabs" aria-label="Sezioni"><button type="button" data-tab="chat" class="active" aria-selected="true">Dialogo</button><button type="button" data-tab="actions" aria-selected="false">Azioni</button><button type="button" data-tab="room" aria-selected="false">Stanza</button><button type="button" data-tab="style" aria-selected="false">Stile</button></nav>
     <section class="panel" data-panel="chat">
       <h2>Conversazione <span aria-hidden="true">✧</span></h2>
       <div class="chat-log" id="chat-log" aria-live="polite" aria-label="Cronologia chat"></div>
@@ -127,6 +167,35 @@
       <p class="muted">Una prima macchina a stati. Le pose complesse e i movimenti delle braccia richiederanno asset e rig dedicati.</p>
       <div class="pill-row" id="actions"><button type="button" class="pill" data-action="wave" aria-pressed="false">👋 Saluta</button><button type="button" class="pill" data-action="think" aria-pressed="false">✦ Pensa</button><button type="button" class="pill" data-action="relax" aria-pressed="false">☾ Rilassati</button><button type="button" class="pill" data-action="idle" aria-pressed="true">◎ Riposa</button></div>
       <div class="info" id="action-info" aria-live="polite">Stato attuale: idle. Una lieve oscillazione rende meno statica la scena.</div>
+    </section>
+
+    <section class="panel room-panel" data-panel="room" hidden>
+      <h2>La stanza <span class="room-alpha">PROTOTIPO 2.5D</span></h2>
+      <p class="muted">Tocca un punto della stanza per esplorarlo. La mappa è un'anteprima interattiva: Aetheria non cammina ancora tra gli oggetti.</p>
+      <div class="room-plan" id="room-plan" role="group" aria-label="Mappa interattiva della stanza">
+        <div class="room-plan-window" aria-hidden="true"><span>✦ &nbsp; ✧</span></div>
+        <div class="room-plan-floor" aria-hidden="true"></div>
+        <button type="button" class="room-spot" data-zone="window" aria-pressed="false"><span class="room-spot-symbol">☾</span><span>Finestra</span></button>
+        <button type="button" class="room-spot" data-zone="desk" aria-pressed="false"><span class="room-spot-symbol">⌘</span><span>Scrivania</span></button>
+        <button type="button" class="room-spot" data-zone="lamp" aria-pressed="false"><span class="room-spot-symbol">✧</span><span>Lampada</span></button>
+        <button type="button" class="room-spot" data-zone="sofa" aria-pressed="false"><span class="room-spot-symbol">▤</span><span>Divano</span></button>
+        <button type="button" class="room-spot" data-zone="bed" aria-pressed="false"><span class="room-spot-symbol">▰</span><span>Letto</span></button>
+      </div>
+      <div class="room-focus" aria-live="polite" aria-atomic="true">
+        <strong id="room-zone-title">Finestra</strong>
+        <span id="room-zone-text">La città è illuminata dalla luna. Puoi osservare il panorama notturno.</span>
+      </div>
+      <span class="label">Atmosfera della stanza</span>
+      <div class="room-modes" role="group" aria-label="Atmosfera della stanza">
+        <button type="button" class="pill" data-room-mode="night" aria-pressed="true">☾ Notte viola</button>
+        <button type="button" class="pill" data-room-mode="warm" aria-pressed="false">☀ Luce calda</button>
+      </div>
+      <div class="room-toggle-row">
+        <span>Accendi lampada</span>
+        <button type="button" id="room-lamp-switch" class="room-switch" role="switch" aria-checked="false" aria-label="Lampada accesa"><span></span></button>
+      </div>
+      <button type="button" class="secondary room-camera" id="room-camera">◇ Inquadra la scena</button>
+      <p class="muted room-disclaimer">Per ora questa è una mappa funzionale con stati, luci e punti selezionabili. Le pose seduta, alzata e camminata richiedono sprite e rig 2D separati.</p>
     </section>
     <section class="panel" data-panel="style" hidden>
       <h2>Personalizza <span aria-hidden="true">◈</span></h2>
@@ -286,6 +355,58 @@
     value: Object.freeze({ version: '0.2.0', getView: () => prefs.view, getLight: () => prefs.intensity }),
     writable: false, configurable: false
   });
+})();
+
+</script>
+<script>
+
+/* Alpha 0.3 — room interaction. No articulated character motion is implemented here. */
+(() => {
+  'use strict';
+  const scene = document.getElementById('scene');
+  const panel = document.querySelector('[data-panel="room"]');
+  if (!scene || !panel) return;
+  const zones = Object.freeze({
+    window: { name: 'Finestra', description: 'La città brilla oltre il vetro. Un punto di osservazione, in attesa di una vera animazione di Aetheria.', title: 'Uno sguardo alla città', line: 'Fuori le luci sono ancora accese. Restiamo qui un momento?' },
+    desk: { name: 'Scrivania', description: 'Angolo dedicato alla lettura, al PC e alle attività. È una zona selezionabile, non un’azione animata.', title: 'Alla scrivania', line: 'Qui potremo leggere, chiacchierare o lavorare insieme.' },
+    lamp: { name: 'Lampada', description: 'La luce calda può essere accesa e spenta indipendentemente dal colore dell’interfaccia.', title: 'Una luce più morbida', line: 'L’atmosfera cambia quando accendiamo la lampada.' },
+    sofa: { name: 'Divano', description: 'Questa zona sarà usata per le future pose sedute e relax, quando ci saranno sprite dedicati.', title: 'Un momento di relax', line: 'Il divano ci aspetta. Le pose sedute arriveranno con il rig 2D.' },
+    bed: { name: 'Letto', description: 'Zona riposo prevista per le future animazioni. La demo non sposta né sdraia ancora il personaggio.', title: 'È ora di riposare?', line: 'Possiamo rendere la stanza più tranquilla; la posa sdraiata è ancora da realizzare.' }
+  });
+  const storageKey='aetheria.room-v03';
+  let state={zone:'window',phase:'night',lamp:false};
+  try { const saved=JSON.parse(localStorage.getItem(storageKey)||'null'); if(saved&&typeof saved==='object')state={...state,...saved}; } catch (_) {}
+  if (!Object.hasOwn(zones,state.zone)) state.zone='window';
+  if (!['night','warm'].includes(state.phase)) state.phase='night';
+  state.lamp=state.lamp===true;
+  const $ = id => document.getElementById(id);
+  const persist=()=>{try{localStorage.setItem(storageKey,JSON.stringify(state));}catch(_){}};
+  const roomLight=document.createElement('div'); roomLight.className='room-light';roomLight.setAttribute('aria-hidden','true');
+  scene.insertBefore(roomLight,scene.querySelector('.scene-content'));
+  function updateLight(){
+    scene.classList.toggle('room-lamp-on',state.lamp);
+    scene.classList.toggle('room-warm',state.phase==='warm');
+    $('room-lamp-switch').setAttribute('aria-checked',String(state.lamp));
+    panel.querySelectorAll('[data-room-mode]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.roomMode===state.phase)));
+    persist();
+  }
+  function selectZone(id,announce=false){
+    if(!Object.hasOwn(zones,id))return;
+    state.zone=id;
+    const info=zones[id];
+    $('room-zone-title').textContent=info.name;
+    $('room-zone-text').textContent=info.description;
+    panel.querySelectorAll('[data-zone]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.zone===id)));
+    scene.dataset.roomZone=id;
+    if(announce){$('scene-title').textContent=info.title;$('scene-message').textContent=info.line;}
+    persist();
+  }
+  panel.querySelectorAll('[data-zone]').forEach(b=>b.addEventListener('click',()=>selectZone(b.dataset.zone,true)));
+  panel.querySelectorAll('[data-room-mode]').forEach(b=>b.addEventListener('click',()=>{state.phase=b.dataset.roomMode;updateLight();}));
+  $('room-lamp-switch').addEventListener('click',()=>{state.lamp=!state.lamp;updateLight();selectZone('lamp',true);$('room-zone-text').textContent=state.lamp?'La lampada è accesa: una luce calda arricchisce l’atmosfera.':'La lampada è spenta: rimane soltanto l’illuminazione della scena.';});
+  $('room-camera').addEventListener('click',()=>{const btn=scene.querySelector('[data-view="cinema"]');if(btn)btn.click();$('scene-title').textContent='La stanza, in primo piano';$('scene-message').textContent='Inquadratura generale: in futuro esploreremo gli oggetti con un personaggio separato dallo sfondo.';});
+  updateLight();selectZone(state.zone,false);
+  Object.defineProperty(window,'AetheriaRoom',{value:Object.freeze({version:'0.3.0',getState:()=>({...state}),selectZone}),writable:false,configurable:false});
 })();
 
 </script>

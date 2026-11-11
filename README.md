@@ -42,3 +42,10 @@ La scheda **Stanza** ora apre una **illustrazione completa dell'ambiente arredat
 - Il nuovo sfondo è un asset generato per il progetto. Le reference originali private non sono state pubblicate.
 
 Lo script e la stanza vengono aggiornati direttamente su `main`, senza modifiche al repository `Neliel`.
+
+
+## Alpha 0.5 — panorama stanza separato
+
+Apri [Aetheria su GitHub Pages](https://0xinsomnia.github.io/Aetheria/?v=0.5) e passa alla scheda **Stanza**. Ora l'ambiente è disegnato in un file SVG indipendente `assets/aetheria-room-empty-v05.svg`, senza Aetheria seduta o sdraiata nell'immagine: letto, monitor, libreria, divano, finestra e luci sono elementi del fondale. La scheda **Dialogo** conserva la scena originale del personaggio. Gli hotspot e i comandi ambientali restano dimostrativi.
+
+Questa è una **panoramica tecnica vettoriale** e non la stanza semi-realistica finale. Aetheria non è ancora uno sprite separato e non cammina nella stanza. Vedi [docs/PROGRESS.md](docs/PROGRESS.md) per le verifiche effettuate.

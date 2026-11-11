@@ -1,31 +1,33 @@
-# PROGRESS — Aetheria
+# Aetheria — Registro di avanzamento
 
-## Alpha 0.1 — checkpoint
+## Alpha 0.2 (11 novembre 2026)
 
-**Implementato:** prototipo HTML/CSS/JS responsive senza dipendenze; tabs Dialogo/Azioni/Stile; temi indipendenti per interfaccia e luce ambientale; memoria locale di preferenze e ultimi messaggi; risposta demo predefinita; sintesi vocale opzionale; piccole transizioni sull'illustrazione.
+Commit principale: `38282e38aa6425dd3654a052378f41c65fc5eba3`. Correzione percorso sfondo: `6ca2a1aff90ac1ce42d9c4e6107194df3fd8f7f6`.
 
-**Non implementato:** rig articolato 2D, animazione di singoli arti, camminata, seduta, lip sync, vestiti modulari, tintura selettiva degli abiti, connessione a modello AI, voce in ingresso, memoria semantica.
+### Implementato
 
-**Illustrazione:** concept generato e compresso in WebP; la qualità della scena statica non è garantita nelle future pose animate. Le immagini originali fornite come reference non sono state pubblicate.
+- Inquadrature selezionabili: **figura intera**, **scena**, **dettaglio**. Il ritaglio e lo zoom sono transizioni dell'illustrazione completa, non pose articolate.
+- Livelli visuali indipendenti: sfondo sfocato, immagine concept, overlay di luce, particelle animate e feedback al tocco.
+- Intensità luce regolabile 0–100%, interruttore particelle, preferenze salvate in `localStorage`.
+- Mantenuti dialogo simulato, effetti di stato, colori indipendenti UI/ambiente, sintesi vocale browser quando disponibile.
+- Respect del sistema `prefers-reduced-motion` per disabilitare le animazioni decorative.
 
-## Prossimi passi
+### Test eseguiti
 
-1. Character sheet coerente nello stile semi-realistico, **orecchie umane normali**, vista frontale e tre-quarti, proporzioni adulte.
-2. Sprite a livelli separati (volto, occhi, capelli, arti, outfit, riflessi).
-3. Rig 2D con trasformazioni gerarchiche, idle e gesti semplici, verifica su Android.
-4. Espressioni, lip sync e transizioni per pose più complesse.
-5. Outfit street nero/rosso e maschere per recolor, mantenendo separate UI, luci e indumenti.
-6. Integrazione AI con gestione sicura delle credenziali lato server.
+- `node --check` sul nuovo script: superato.
+- Chromium headless, con HTML/CSS/JS e asset incorporati nel test (ambiente blocca le richieste HTTP locali), viewport 390×844 e 1280×900.
+- Passati per entrambe le viewport: scelta modalità dettaglio e figura intera, regolazione luce a 80%, disattivazione particelle, cambio luce rossa, invio messaggio 'ciao' e verifica cronologia; nessun errore JavaScript rilevato.
+- Screenshot locali prodotti per entrambi i viewport. GitHub Pages su telefono fisico **non verificato da questi test**.
 
-**Verifiche:** sintassi JavaScript controllata con Node; screenshot e test end-to-end su browser reali non ancora confermati. Non confondere movimenti della singola immagine con animazione riggata.
+### Da fare — priorità alta
 
-**Confine:** lavorare solo in `0xInsomnia/Aetheria`; non modificare Neliel.
+1. Nuovo master art coerente con le reference: **orecchie umane**, figura adulta, viso semi-realistico; revisione artistica prima dell'integrazione.
+2. Asset del personaggio a livelli indipendenti (capelli, viso, occhi, braccia, busto, gambe, outfit e dettagli), con porzioni nascoste disegnate.
+3. Rig scheletrico 2D funzionante con pivot e test per idle, occhi e saluto. Questa è la vera soglia tra una demo con immagine e una companion animata.
+4. Espressioni/lip sync e pose dedicate per seduta e camminata.
+5. Maschere di colore per outfit indipendenti da UI e stanza, preset street black/red.
+6. AI e memoria personale solo con backend e protezione adeguata delle credenziali.
 
+### Confini e privacy
 
-## Verifiche eseguite dopo il primo commit
-
-- Sintassi JavaScript verificata con `node --check`: **OK**.
-- Chromium headless tramite Playwright, viewport desktop **1280 × 900** e smartphone **390 × 844**: **OK** in test con HTML e asset locali incorporati.
-- In entrambi i viewport: cambio UI viola→rosso, click su azione “Saluta”, invio messaggio “Ciao” e rendering chat: **OK**; nessun errore `pageerror` rilevato.
-- **Non verificati:** attivazione GitHub Pages, rete, comportamento su dispositivo Android fisico, qualità di una futura animazione a livelli.
-- **Nota artistica:** l'immagine concept è provvisoria e precede la decisione sulle orecchie umane; va sostituita con un personaggio disegnato in conformità alle reference prima di considerare chiuso il design.
+Solo `0xInsomnia/Aetheria`; **Neliel 3D non viene toccata**. Il repository è pubblico: reference originali e dettagli personali non vanno pubblicati. L'illustrazione inserita è un concept provvisorio.

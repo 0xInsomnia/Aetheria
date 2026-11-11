@@ -1,26 +1,30 @@
 # Aetheria — Companion 2D
 
-[Apri il prototipo su GitHub Pages](https://0xinsomnia.github.io/Aetheria/)
+[Apri la demo su GitHub Pages](https://0xinsomnia.github.io/Aetheria/)
 
-Progetto indipendente da **Neliel 3D**. Alpha **0.2** è una demo HTML/CSS/JS statica e mobile-friendly: nessuna API key e nessuna dipendenza esterna.
+**Alpha 0.3**, progetto indipendente da **Neliel 3D**. Si tratta di un'app web statica e responsive, ancora sperimentale, senza API esterne né dipendenze di runtime.
 
-## Funziona oggi
+## Prova le funzioni
 
-- Scena illustrata con **tre inquadrature** selezionabili: figura intera, scena, dettaglio.
-- **Sfondo sfocato** e **particelle 2D** su livelli indipendenti rispetto all'illustrazione di scena.
-- **Intensità della luce** regolabile (0–100%) ed effetti opzionali.
-- Palette UI e luce ambiente separate, persistenti localmente.
-- Piccoli feedback al tocco, stati dimostrativi, chat locale simulata e sintesi vocale browser quando disponibile.
-- Interfaccia responsive. Preferenze di inquadratura, luce e particelle memorizzate sul dispositivo.
+- **Dialogo:** piccola chat simulata, con risposte locali preimpostate, salvataggio sul browser, lettura vocale se supportata.
+- **Azioni:** stati dimostrativi Saluta, Pensa e Relax. Muovono la scena illustrata nel suo insieme: non sono ancora animazioni scheletriche.
+- **Stanza:** una **mappa 2.5D schematica interattiva** con cinque punti (finestra, scrivania, lampada, divano, letto), selezione e descrizioni contestuali.
+- **Stanza:** accensione/spegnimento lampada, atmosfera notturna o luce calda; preferenze salvate localmente. Bottone per inquadrare la scena.
+- **Stile:** palette UI e colore luce ambientale indipendenti, intensità luce, opzione particelle.
+- **Inquadrature:** figura intera, scena, dettaglio.
 
-## Limiti reali
+Apri `index.html` tramite GitHub Pages o un server statico (per esempio `python3 -m http.server 8000`).
 
-**Non c'è ancora un rig del personaggio.** L'immagine è unica e le azioni non muovono singole articolazioni. Non ci sono ancora animazioni di occhi/braccia, espressioni disegnate, cambi di outfit o ricolorazione selettiva degli abiti, riconoscimento vocale o intelligenza conversazionale. Il personaggio attualmente usato è un concept provvisorio precedente alla richiesta di orecchie umane: va sostituito, non rappresenta il design finale.
+## Fondamenta tecniche
 
-L'obiettivo è una companion anime **semi-realistica adulta**, con capelli argentati, occhi viola, orecchie umane normali, outfit nero/viola base e, successivamente, preset street nero/rosso. La palette del personaggio sarà indipendente da quella della stanza e della UI una volta disponibili i layer necessari.
+Il file `src/skeleton2d.mjs` introduce un **motore matematico per futuri sprite a livelli**, con trasformazioni per elemento, interpolazione di pose e campionamento keyframe. **Non è ancora collegato alla scena pubblica:** servono prima illustrazioni tagliate in livelli e pivot corretti. Test unitari in `tests/skeleton2d.test.mjs`, eseguibili con `node --test tests/*.test.mjs`.
 
-## Esecuzione
+## Limiti veri
 
-Apri [index.html](index.html) con un server statico (ad esempio `python3 -m http.server 8000` nella cartella del repository) oppure tramite GitHub Pages. Tutto il codice JavaScript e CSS della demo attuale è incorporato in `index.html` per semplificare il deploy.
+La foto concept della schermata principale include ancora personaggio e sfondo **in un unico file**. Non è possibile camminare, sedersi, cambiare outfit o animare bocca/occhi in modo reale. La mappa della stanza è un prototipo funzionale di interazione, **non** una stanza esplorabile con locomozione. Non è un chatbot AI con memoria semantica. L'illustrazione provvisoria va corretta rispetto al riferimento umano (orecchie normali).
 
-I materiali di riferimento originali non sono stati pubblicati. Vedi [docs/PROGRESS.md](docs/PROGRESS.md) per stato e test.
+## Direzione artistica
+
+Companion anime adulta **semi-realistica**, capelli argentati, occhi viola, orecchie umane, proporzioni adulte, outfit nero/viola di base. In futuro: outfit street nero/rosso e ricolorazione **solo con layer e maschere dedicati**. Atmosfera, UI e abiti dovranno essere regolabili indipendentemente.
+
+Il repository è pubblico: **non pubblicare le reference originali o dati personali dell'utente**. Consulta [docs/PROGRESS.md](docs/PROGRESS.md) e [docs/ART_DIRECTION.md](docs/ART_DIRECTION.md).

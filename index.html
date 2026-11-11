@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#100d1c" />
+  <meta name="description" content="Aetheria — prototipo interattivo di companion 2D semi-realistica." />
+  <title>Aetheria · Companion 2D</title>
+  <style>
+    :root { color-scheme:dark; font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,sans-serif; --accent:#b183ff; --accent-rgb:177,131,255; --ambient:#aa60f2; --ink:#f8f4ff; --muted:#bcb3d0; --back:#100d1c; }
+    *, *::before, *::after { box-sizing:border-box; }
+    html,body { margin:0; min-height:100%; background:var(--back); color:var(--ink); }
+    button,input { font:inherit; }
+    button { cursor:pointer; }
+    button:focus-visible,input:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
+    .app { min-height:100dvh; background:radial-gradient(ellipse at 30% 8%,rgba(var(--accent-rgb),.12),transparent 44%),#0c0a14; display:grid; grid-template-columns:minmax(290px,1fr) minmax(340px,430px); }
+    .scene { position:relative; isolation:isolate; min-height:850px; overflow:hidden; background:#171326; }
+    .scene::before { content:"";position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse at 67% 17%,var(--ambient),transparent 63%);opacity:.22;pointer-events:none;mix-blend-mode:screen; }
+    .scene::after { content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(to bottom,rgba(6,5,14,.54) 0%,transparent 25%,transparent 57%,rgba(5,5,15,.75) 100%);pointer-events:none; }
+    .scene-picture { width:100%; height:100%; object-fit:cover; object-position:50% 22%; position:absolute; inset:0; transition:transform .75s cubic-bezier(.2,.8,.2,1),filter .6s; animation:gentle-breathe 7s ease-in-out infinite; }
+    .scene.wave .scene-picture { transform:translateY(-9px) rotate(-.7deg) scale(1.018); }
+    .scene.think .scene-picture { transform:translateY(3px) rotate(1deg) scale(1.012); }
+    .scene.relax .scene-picture { transform:translateY(9px) scale(.982); filter:saturate(.84) brightness(.94); }
+    @keyframes gentle-breathe { 0%,100% { scale:1; } 50% { scale:1.009; } }
+    .scene-content {position:relative;z-index:3;min-height:850px;display:flex;flex-direction:column;justify-content:space-between;padding:29px clamp(18px,3vw,46px);}
+    .brand { display:flex; align-items:center; gap:14px; text-shadow:0 2px 15px #000; }
+    .brand-mark {font-size:31px;color:var(--accent);filter:drop-shadow(0 0 15px var(--accent));}
+    .brand-name {font-family:Georgia,Times New Roman,serif;font-size:clamp(29px,3vw,44px);letter-spacing:.02em;line-height:1.05;}
+    .brand-sub { font-size:12px; letter-spacing:.17em; color:#eee4ff; text-transform:uppercase; margin-top:6px; }
+    .scene-bottom { max-width:500px; }
+    .status { display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid rgba(255,255,255,.24);background:#100b20a6;backdrop-filter:blur(12px);border-radius:999px;font-size:12px;letter-spacing:.04em; }
+    .live-dot { width:7px;height:7px;background:#8ee9cb;box-shadow:0 0 12px #8ee9cb;border-radius:100%; }
+    .message-banner { margin:16px 0 8px;padding:18px 20px;max-width:460px;background:#130f25c9;backdrop-filter:blur(15px);border:1px solid rgba(var(--accent-rgb),.38);border-radius:20px;box-shadow:0 12px 42px #0006; }
+    .message-banner strong { display:block;font-family:Georgia,serif;font-size:22px;font-weight:500; margin-bottom:5px; }
+    .message-banner span {color:#e3dced;line-height:1.5;font-size:14px;}
+    .scene-note {font-size:11px;color:#d3cbdf;text-shadow:0 2px 4px #000;margin-top:12px;}
+    .sidebar {border-left:1px solid rgba(255,255,255,.11);background:linear-gradient(160deg,#151121f5,#0f0b1af6);padding:29px 24px;display:flex;flex-direction:column;gap:20px;min-width:0;}
+    .topline {display:flex;align-items:center;justify-content:space-between;gap:12px;}
+    h1 {font:500 25px Georgia,serif;margin:0;} .tag {font-size:11px;border:1px solid #55456d;border-radius:99px;padding:6px 10px;color:#d3c3ef;white-space:nowrap;}
+    .intro {color:var(--muted);font-size:13px;line-height:1.65;margin:0;}
+    .tabs {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:5px;border-radius:13px;background:#221b31;border:1px solid #ffffff13;}
+    .tabs button {background:transparent;border:0;color:#c7bcd8;border-radius:10px;padding:11px 5px;font-weight:600;font-size:12px;}
+    .tabs button.active {background:rgba(var(--accent-rgb),.18);color:#fff;box-shadow:inset 0 0 0 1px rgba(var(--accent-rgb),.42);}
+    .panel {background:linear-gradient(150deg,#211a31aa,#171322bd);border:1px solid #ffffff18;border-radius:17px;padding:18px;box-shadow:0 12px 28px #0002;}
+    .panel h2 {font-size:15px;letter-spacing:.01em;font-weight:600;margin:0 0 14px;display:flex;align-items:center;justify-content:space-between;}
+    .label {font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#bcb0cd;display:block;margin:14px 0 10px;}
+    .muted {color:var(--muted);font-size:12px;line-height:1.55;}
+    .pill-row {display:flex;gap:8px;flex-wrap:wrap;}
+    .pill {border:1px solid #6c597f;background:#211a2e;color:#f3ebff;padding:10px 13px;border-radius:11px;font-size:12px;transition:background .2s,border-color .2s;}
+    .pill:hover,.pill[aria-pressed=true] {background:rgba(var(--accent-rgb),.22);border-color:var(--accent);}
+    .swatches {display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+    .swatch {width:37px;height:37px;border-radius:50%;border:2px solid #fff6;box-shadow:0 1px 10px #0005;position:relative;}
+    .swatch[aria-pressed=true]::after {content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:white;font-weight:bold;text-shadow:0 1px 4px #000;}
+    .swatch.violet {background:#a76dff}.swatch.red {background:#e74a61}.swatch.blue {background:#52baf3}.swatch.amber {background:#d3a666}
+    .chat-log {height:225px;overflow:auto;display:flex;flex-direction:column;gap:10px;padding:3px 5px 4px 0;}
+    .chat-item {max-width:90%;background:#29213a;padding:10px 12px;border-radius:13px 13px 13px 3px;font-size:13px;line-height:1.45;align-self:flex-start;overflow-wrap:anywhere;}
+    .chat-item.mine {align-self:flex-end;background:rgba(var(--accent-rgb),.23);border-radius:13px 13px 3px 13px;}
+    .chat-form {display:flex;gap:7px;margin-top:12px;}
+    .chat-form input {min-width:0;flex:1;background:#110f1c;border:1px solid #635477;color:white;border-radius:10px;padding:12px;font-size:13px;}
+    .send {color:#151020;background:var(--accent);border:0;border-radius:10px;padding:10px 14px;font-weight:800;}
+    .secondary {border:1px solid #76618f;background:#211b32;color:#eee3ff;border-radius:9px;padding:9px 13px;font-size:12px;}
+    .info {font-size:12px;line-height:1.6;color:#d9ceea;padding:11px;background:#231a33;border-left:2px solid var(--accent);border-radius:4px 8px 8px 4px;margin-top:14px;}
+    .footer {margin-top:auto;font-size:11px;color:#998caa;line-height:1.7;}
+    [hidden] {display:none !important;}
+    @media(max-width:800px) { .app {display:block;} .scene,.scene-content {min-height:74svh;} .scene {height:74svh;} .scene-picture {object-position:50% 18%;} .scene-content {padding:19px 18px;} .scene-bottom {width:min(100%,420px);} .message-banner {padding:12px 15px;} .message-banner strong{font-size:18px;} .sidebar {border-left:0;border-top:1px solid rgba(255,255,255,.2);padding:23px 17px 35px;gap:15px;} }
+    @media(max-width:450px) { .scene,.scene-content {min-height:66svh;height:66svh;} .brand-name {font-size:30px;} .brand-sub {font-size:10px;} .scene-note {font-size:10px;} .panel {padding:14px;} }
+    @media(prefers-reduced-motion:reduce) {*,*::before,*::after {animation:none !important;transition:none !important;scroll-behavior:auto !important;} }
+  </style>
+</head>
+<body>
+<div class="app">
+  <main class="scene" id="scene" aria-label="Scena illustrata di Aetheria">
+    <img class="scene-picture" src="./assets/aetheria-scene.webp" alt="Concept provvisorio di una companion anime adulta con capelli argentati, outfit nero e viola, davanti a un paesaggio notturno" />
+    <div class="scene-content">
+      <div class="brand"><div class="brand-mark" aria-hidden="true">▽</div><div><div class="brand-name">Aetheria</div><div class="brand-sub">A 2D companion story</div></div></div>
+      <div class="scene-bottom">
+        <div class="status"><span class="live-dot"></span> Prototipo interattivo · offline</div>
+        <div class="message-banner"><strong id="scene-title">Una presenza, una storia.</strong><span id="scene-message">Benvenuto. Possiamo iniziare dalle piccole cose, un gesto alla volta.</span></div>
+        <div class="scene-note">Illustrazione concept: i movimenti attuali sono transizioni dell'immagine, non un rig articolato.</div>
+      </div>
+    </div>
+  </main>
+  <aside class="sidebar" aria-label="Controlli della companion">
+    <div class="topline"><h1>Il tuo spazio</h1><span class="tag">ALPHA 0.1</span></div>
+    <p class="intro">Atmosfera semi-realistica, interazioni iniziali e temi indipendenti. La versione animata a livelli è la prossima tappa.</p>
+    <nav class="tabs" aria-label="Sezioni"><button type="button" data-tab="chat" class="active" aria-selected="true">Dialogo</button><button type="button" data-tab="actions" aria-selected="false">Azioni</button><button type="button" data-tab="style" aria-selected="false">Stile</button></nav>
+    <section class="panel" data-panel="chat">
+      <h2>Conversazione <span aria-hidden="true">✧</span></h2>
+      <div class="chat-log" id="chat-log" aria-live="polite" aria-label="Cronologia chat"></div>
+      <form class="chat-form" id="chat-form"><input id="chat-input" autocomplete="off" placeholder="Scrivi qualcosa..." aria-label="Messaggio" maxlength="250" required/><button class="send" type="submit" aria-label="Invia messaggio">➤</button></form>
+      <p class="muted">Demo locale: risposte preimpostate, nessuna IA o connessione a servizi esterni.</p>
+      <div class="pill-row"><button class="secondary" id="speak" type="button">▶ Leggi risposta</button><button class="secondary" id="clear" type="button">Cancella chat</button></div>
+    </section>
+    <section class="panel" data-panel="actions" hidden>
+      <h2>Piccole interazioni <span aria-hidden="true">♡</span></h2>
+      <p class="muted">Una prima macchina a stati. Le pose complesse e i movimenti delle braccia richiederanno asset e rig dedicati.</p>
+      <div class="pill-row" id="actions"><button type="button" class="pill" data-action="wave" aria-pressed="false">👋 Saluta</button><button type="button" class="pill" data-action="think" aria-pressed="false">✦ Pensa</button><button type="button" class="pill" data-action="relax" aria-pressed="false">☾ Rilassati</button><button type="button" class="pill" data-action="idle" aria-pressed="true">◎ Riposa</button></div>
+      <div class="info" id="action-info" aria-live="polite">Stato attuale: idle. Una lieve oscillazione rende meno statica la scena.</div>
+    </section>
+    <section class="panel" data-panel="style" hidden>
+      <h2>Personalizza <span aria-hidden="true">◈</span></h2>
+      <span class="label">Colore dell'interfaccia</span><div class="swatches" id="ui-swatches" aria-label="Colori UI"><button class="swatch violet" data-color="violet" title="Viola" aria-label="Interfaccia viola" aria-pressed="true"></button><button class="swatch red" data-color="red" title="Rosso" aria-label="Interfaccia rossa" aria-pressed="false"></button><button class="swatch blue" data-color="blue" title="Azzurro" aria-label="Interfaccia azzurra" aria-pressed="false"></button><button class="swatch amber" data-color="amber" title="Ambra" aria-label="Interfaccia ambra" aria-pressed="false"></button></div>
+      <span class="label">Luce ambientale</span><div class="swatches" id="room-swatches" aria-label="Colori ambiente"><button class="swatch violet" data-color="violet" title="Viola" aria-label="Luce viola" aria-pressed="true"></button><button class="swatch red" data-color="red" title="Rosso" aria-label="Luce rossa" aria-pressed="false"></button><button class="swatch blue" data-color="blue" title="Azzurro" aria-label="Luce azzurra" aria-pressed="false"></button><button class="swatch amber" data-color="amber" title="Ambra" aria-label="Luce ambra" aria-pressed="false"></button></div>
+      <span class="label">Vestiti / outfit</span><div class="pill-row"><button class="pill" type="button" aria-pressed="true" disabled>Originale nero/viola</button><button class="pill" type="button" disabled>Street nero/rosso · in sviluppo</button></div>
+      <div class="info">I cambi di UI e luce funzionano. Per ricolorare correttamente gli abiti senza alterare la pelle serviranno layer separati: non è ancora implementato.</div>
+    </section>
+    <div class="footer">Aetheria è un progetto indipendente. Nessun dato viene inviato online in questa demo; temi e ultimi messaggi sono salvati solo nel browser.</div>
+  </aside>
+</div>
+<script>
+  'use strict';
+  const palette={violet:{accent:'#b183ff',rgb:'177,131,255',ambient:'#aa60f2'},red:{accent:'#f76d7f',rgb:'247,109,127',ambient:'#e9475e'},blue:{accent:'#67baf9',rgb:'103,186,249',ambient:'#4c9ee8'},amber:{accent:'#e6b77d',rgb:'230,183,125',ambient:'#dc9950'}};
+  const pick=(k,fallback)=>{try{return JSON.parse(localStorage.getItem('aetheria.'+k))??fallback;}catch{return fallback;}};
+  const store=(k,v)=>{try{localStorage.setItem('aetheria.'+k,JSON.stringify(v));}catch{}};
+  let settings=pick('settings',{ui:'violet',room:'violet'});
+  let chat=pick('chat',[{from:'aetheria',text:'Ciao! Sono il prototipo di Aetheria. Ti va di provare qualche interazione?'}]);
+  if(!Array.isArray(chat)) chat=[];
+  chat=chat.slice(-30);
+  let currentAction='idle';
+  const $=id=>document.getElementById(id);
+  const title=$('scene-title'),message=$('scene-message'),scene=$('scene');
+  function tab(name){document.querySelectorAll('[data-tab]').forEach(b=>{const yes=b.dataset.tab===name;b.classList.toggle('active',yes);b.setAttribute('aria-selected',String(yes));});document.querySelectorAll('[data-panel]').forEach(p=>p.hidden=p.dataset.panel!==name);}
+  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>tab(b.dataset.tab)));
+  function color(kind,name){if(!palette[name])return;settings[kind]=name;const pal=palette[settings.ui];document.documentElement.style.setProperty('--accent',pal.accent);document.documentElement.style.setProperty('--accent-rgb',pal.rgb);document.documentElement.style.setProperty('--ambient',palette[settings.room].ambient);document.querySelectorAll('#'+(kind==='ui'?'ui':'room')+'-swatches .swatch').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.color===name)));store('settings',settings);}
+  document.querySelectorAll('#ui-swatches .swatch').forEach(b=>b.addEventListener('click',()=>color('ui',b.dataset.color)));
+  document.querySelectorAll('#room-swatches .swatch').forEach(b=>b.addEventListener('click',()=>color('room',b.dataset.color)));
+  color('ui',palette[settings.ui]?settings.ui:'violet');color('room',palette[settings.room]?settings.room:'violet');
+  const actions={idle:['Una presenza, una storia.','Un momento di quiete, con la città che brilla sullo sfondo.','Stato attuale: idle. Una lieve oscillazione rende meno statica la scena.'],wave:['Ehi, ci sei? ♡','Ti mando un saluto! Presto potrò muovere davvero un braccio.','Stato: saluto dimostrativo. Il rig delle braccia non è ancora presente.'],think:['Fammi riflettere...','Ogni piccolo passo ci avvicina alla versione che immagini.','Stato: pensierosa. È una transizione dell’immagine, non una nuova posa disegnata.'],relax:['Un po’ di calma.','La stanza si fa più tranquilla. Resto qui.','Stato: relax. Contrasto e postura illustrata cambiano leggermente.']};
+  function action(id){if(!actions[id])return;currentAction=id;scene.classList.remove('wave','think','relax');if(id!=='idle')scene.classList.add(id);const [a,b,c]=actions[id];title.textContent=a;message.textContent=b;$('action-info').textContent=c;document.querySelectorAll('#actions [data-action]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.action===id)));}
+  document.querySelectorAll('#actions [data-action]').forEach(b=>b.addEventListener('click',()=>action(b.dataset.action)));
+  const log=$('chat-log');
+  function drawChat(){log.replaceChildren();for(const item of chat){if(!item||!['me','aetheria'].includes(item.from))continue;const div=document.createElement('div');div.className='chat-item'+(item.from==='me'?' mine':'');div.textContent=String(item.text??'').slice(0,500);log.append(div);}log.scrollTop=log.scrollHeight;}
+  function reply(text){const t=text.toLocaleLowerCase('it');if(/ciao|salut/.test(t))return 'Ciao! Sono felice che tu sia qui. 👋';if(/come stai|tutto bene/.test(t))return 'Mi sento pronta a prendere forma, un’animazione alla volta.';if(/outfit|vestit|rosso|viola/.test(t))return 'Possiamo cambiare il tema nella scheda Stile. Gli outfit veri verranno preparati come livelli separati.';if(/cammin|sedut|anim/.test(t))return 'Per quei movimenti serve ancora il rig 2D e un set di pose. Questa è solo la prima demo.';if(/nome|chi sei/.test(t))return 'Mi chiamo Aetheria. Per ora rispondo con una piccola logica locale: non sono ancora collegata a un modello AI.';return 'Ti ascolto. Questa prima versione ha risposte dimostrative; l’intelligenza conversazionale arriverà in una fase successiva.';}
+  $('chat-form').addEventListener('submit',e=>{e.preventDefault();const v=$('chat-input').value.trim();if(!v)return;chat.push({from:'me',text:v});const response=reply(v);chat.push({from:'aetheria',text:response});chat=chat.slice(-30);store('chat',chat);drawChat();$('chat-input').value='';title.textContent='Ti ascolto';message.textContent=response;});
+  $('clear').addEventListener('click',()=>{chat=[{from:'aetheria',text:'Conversazione azzerata su questo dispositivo.'}];store('chat',chat);drawChat();});
+  $('speak').addEventListener('click',()=>{const speech=window.speechSynthesis;if(!speech){message.textContent='La sintesi vocale non è disponibile in questo browser.';return;}speech.cancel();const last=[...chat].reverse().find(x=>x.from==='aetheria');const utterance=new SpeechSynthesisUtterance(last?.text||message.textContent);utterance.lang='it-IT';utterance.rate=.95;speech.speak(utterance);});
+  drawChat();
+</script>
+</body>
+</html>

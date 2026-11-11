@@ -20,3 +20,12 @@
 **Verifiche:** sintassi JavaScript controllata con Node; screenshot e test end-to-end su browser reali non ancora confermati. Non confondere movimenti della singola immagine con animazione riggata.
 
 **Confine:** lavorare solo in `0xInsomnia/Aetheria`; non modificare Neliel.
+
+
+## Verifiche eseguite dopo il primo commit
+
+- Sintassi JavaScript verificata con `node --check`: **OK**.
+- Chromium headless tramite Playwright, viewport desktop **1280 × 900** e smartphone **390 × 844**: **OK** in test con HTML e asset locali incorporati.
+- In entrambi i viewport: cambio UI viola→rosso, click su azione “Saluta”, invio messaggio “Ciao” e rendering chat: **OK**; nessun errore `pageerror` rilevato.
+- **Non verificati:** attivazione GitHub Pages, rete, comportamento su dispositivo Android fisico, qualità di una futura animazione a livelli.
+- **Nota artistica:** l'immagine concept è provvisoria e precede la decisione sulle orecchie umane; va sostituita con un personaggio disegnato in conformità alle reference prima di considerare chiuso il design.

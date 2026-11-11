@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aetheria · Banco prova del rig 2D</title>
+  <style>
+    :root { color-scheme: dark; --bg: #14121b; --panel: #1e1b29; --line: #34304a; --text: #ece9f5; --muted: #a8a2bd; --accent: #a78bfa; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    header { padding: 14px 16px 6px; }
+    h1 { margin: 0 0 4px; font-size: 1.15rem; }
+    .notice { margin: 0; color: #fde68a; font-size: .9rem; }
+    main { display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 360px); gap: 14px; padding: 10px 16px 24px; align-items: start; }
+    .stage { position: sticky; top: 8px; background: repeating-conic-gradient(#221f2f 0% 25%, #1a1824 0% 50%) 0 0 / 28px 28px; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    canvas { display: block; width: 100%; height: min(86vh, 900px); touch-action: none; }
+    .panel { display: grid; gap: 10px; }
+    section { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px 12px; }
+    h2 { margin: 0 0 8px; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+    label { display: flex; align-items: center; gap: 8px; min-height: 30px; }
+    .row { display: flex; flex-wrap: wrap; gap: 6px; }
+    .field { display: grid; gap: 2px; margin-top: 6px; }
+    .field > span { color: var(--muted); font-size: .85rem; }
+    button, select, textarea { font: inherit; color: var(--text); background: #2a2639; border: 1px solid var(--line); border-radius: 8px; }
+    button { padding: 7px 11px; cursor: pointer; min-height: 36px; }
+    button:hover { border-color: var(--accent); }
+    button[aria-pressed="true"] { background: #4c3d8f; border-color: var(--accent); }
+    select { padding: 6px 8px; width: 100%; min-height: 36px; }
+    input[type="range"] { width: 100%; accent-color: var(--accent); }
+    input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--accent); }
+    input[type="color"] { width: 44px; height: 30px; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: none; }
+    textarea { width: 100%; min-height: 96px; padding: 6px; font: 12px/1.35 ui-monospace, Menlo, Consolas, monospace; resize: vertical; }
+    .report { margin: 0; white-space: pre-wrap; font: 12px/1.4 ui-monospace, Menlo, Consolas, monospace; color: var(--muted); }
+    .report.bad { color: #fca5a5; }
+    .hint { margin: 6px 0 0; color: var(--muted); font-size: .82rem; }
+    @media (max-width: 760px) {
+      main { grid-template-columns: 1fr; }
+      .stage { position: static; }
+      canvas { height: 68vh; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Aetheria · Banco prova del rig 2D</h1>
+    <p class="notice">Sprite segnaposto: questo manichino serve a provare ossa, pivot e maschere. Non è il personaggio definitivo.</p>
+  </header>
+  <main>
+    <div class="stage"><canvas id="stage" aria-label="Anteprima del rig"></canvas></div>
+    <div class="panel">
+      <section>
+        <h2>Animazioni</h2>
+        <label><input type="checkbox" id="breathe" checked> Respirazione</label>
+        <label><input type="checkbox" id="hair" checked> Capelli e accessori (moto secondario)</label>
+        <label><input type="checkbox" id="blink" checked> Battito delle palpebre</label>
+        <label><input type="checkbox" id="follow" checked> Lo sguardo segue il puntatore</label>
+        <div class="field"><span>Inclinazione della testa: <output id="tilt-value">0°</output></span><input type="range" id="tilt" min="-20" max="20" value="0" step="1"></div>
+        <div class="row" style="margin-top:8px">
+          <button type="button" id="wave">Saluta</button>
+          <button type="button" id="blink-now">Batti le palpebre</button>
+        </div>
+      </section>
+      <section>
+        <h2>Espressioni</h2>
+        <div class="row" id="expressions"></div>
+      </section>
+      <section>
+        <h2>Colori dell'outfit</h2>
+        <select id="palette" aria-label="Palette"></select>
+        <div id="tints"></div>
+        <label><input type="checkbox" id="only-tint"> Mostra solo i livelli colorabili</label>
+      </section>
+      <section>
+        <h2>Verifica di allineamento</h2>
+        <label><input type="checkbox" id="dbg-bones"> Ossa</label>
+        <label><input type="checkbox" id="dbg-pivots"> Pivot</label>
+        <label><input type="checkbox" id="dbg-joints"> Dischi delle giunzioni</label>
+        <label><input type="checkbox" id="dbg-boxes"> Riquadri dei livelli</label>
+        <label><input type="checkbox" id="dbg-names"> Nomi delle ossa</label>
+        <label><input type="checkbox" id="rest"> Posa di riposo (ferma tutto)</label>
+        <label><input type="checkbox" id="explode"> Vista esplosa (mostra le parti ricostruite)</label>
+        <div class="field"><span>Osso</span><select id="bone"></select></div>
+        <div class="field"><span>Rotazione di prova: <output id="rotation-value">0°</output></span><input type="range" id="rotation" min="-180" max="180" value="0" step="1"></div>
+        <div class="row" style="margin-top:8px">
+          <button type="button" id="reset-joints">Azzera le prove</button>
+          <button type="button" id="sweep" aria-pressed="false">Prova tutte le articolazioni</button>
+        </div>
+      </section>
+      <section>
+        <h2>Regolazione dei pivot</h2>
+        <label><input type="checkbox" id="edit-pivot"> Trascina il pivot dell'osso selezionato</label>
+        <p class="hint">La modifica vale solo in questa pagina. Copia il risultato in <code>rig/aetheria.rig.json</code>.</p>
+        <textarea id="pivot-json" readonly aria-label="Pivot modificati"></textarea>
+        <div class="row"><button type="button" id="copy-pivots">Copia</button></div>
+      </section>
+      <section>
+        <h2>Stato</h2>
+        <pre class="report" id="report">Caricamento…</pre>
+      </section>
+    </div>
+  </main>
+  <script type="module" src="./demo.mjs"></script>
+</body>
+</html>

@@ -297,24 +297,24 @@
     },
     "hair_side_R": {
       "image": "hair_side_R.png",
-      "x": 385,
-      "y": 176,
+      "x": 377,
+      "y": 178,
       "width": 49,
-      "height": 305
+      "height": 303
     },
     "hair_side_L": {
       "image": "hair_side_L.png",
-      "x": 566,
-      "y": 176,
+      "x": 574,
+      "y": 178,
       "width": 49,
-      "height": 305
+      "height": 303
     },
     "hair_front": {
       "image": "hair_front.png",
       "x": 392,
       "y": 110,
       "width": 216,
-      "height": 134
+      "height": 97
     },
     "upper_arm_L": {
       "image": "upper_arm_L.png",

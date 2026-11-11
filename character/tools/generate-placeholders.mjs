@@ -143,7 +143,7 @@ function recipes(rig) {
     out['eyelid_' + side + '_half'] = [ellipse([eyeX, 245], 26, 15, SKIN, { maxY: 246 }), capsule([eyeX - 24, 246], [eyeX + 24, 246], 2.6, 2.6, DARK)];
     out['eyelid_' + side + '_closed'] = [ellipse([eyeX, 245], 26, 15, SKIN), ring([eyeX, 222], 34, 2.6, DARK, { ...lash, minY: 245.5 })];
     out['brow_' + side] = [capsule(m([436, 217]), m([474, 211]), 4, 3.4, DARK)];
-    out['hair_side_' + side] = [capsule(m([410, 200]), m([396, 470]), 22, 9, HAIR)];
+    out['hair_side_' + side] = [capsule(m([404, 200]), m([388, 470]), 20, 9, HAIR)];
   }
 
   // Tatuaggio geometrico: livello separato, mai colorato dalle palette degli abiti.
@@ -186,9 +186,10 @@ function recipes(rig) {
   out.hair_back = [ellipse([500, 225], 114, 135, HAIR_DARK), capsule([500, 300], [500, 560], 108, 90, HAIR_DARK)];
   out.ponytail = [capsule(P.ponytail, P.ponytailTip, 46, 40, HAIR)];
   out.ponytail_tip = [capsule(P.ponytailTip, [P.ponytailTip[0] + 30, P.ponytailTip[1] + 460], 40, 16, HAIR)];
+  // La frangia segnaposto resta sopra le sopracciglia, così le espressioni sono leggibili.
   out.hair_front = [
-    ellipse([500, 190], 106, 78, HAIR, { maxY: 212 }),
-    capsule([450, 200], [440, 236], 14, 6, HAIR), capsule([550, 200], [560, 236], 14, 6, HAIR), capsule([500, 196], [503, 228], 12, 5, HAIR)
+    ellipse([500, 190], 106, 78, HAIR, { maxY: 190 }),
+    capsule([452, 182], [446, 198], 13, 7, HAIR), capsule([548, 182], [554, 198], 13, 7, HAIR), capsule([500, 180], [502, 196], 12, 6, HAIR)
   ];
   return out;
 }

@@ -84,6 +84,15 @@ test('battito: sequenza half → closed → half → open, poi nuova attesa', ()
   assert.ok(blinked);
 });
 
+test('il battito manuale funziona anche con quello automatico disattivato', () => {
+  const animator = quiet();
+  assert.equal(run(animator, 8000).slots.eyelidR, 'open');
+  animator.triggerBlink();
+  const seen = new Set();
+  for (let t = 0; t < 300; t += 10) seen.add(animator.update(10).slots.eyelidR);
+  assert.deepEqual([...seen].sort(), ['closed', 'half', 'open']);
+});
+
 test('sguardo e inclinazione della testa restano entro i limiti', () => {
   const animator = quiet();
   animator.setGaze(5, -5);

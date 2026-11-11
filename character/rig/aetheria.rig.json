@@ -19,8 +19,8 @@
     { "name": "hairBack", "parent": "head", "pivot": [500, 170], "limits": { "rotation": [-12, 12] }, "physics": { "stiffness": 40, "damping": 9, "gravity": 0.7 } },
     { "name": "ponytail", "parent": "head", "pivot": [540, 140], "limits": { "rotation": [-30, 30] }, "physics": { "stiffness": 34, "damping": 6, "gravity": 0.8 } },
     { "name": "ponytailTip", "parent": "ponytail", "pivot": [650, 500], "limits": { "rotation": [-40, 40] }, "physics": { "stiffness": 26, "damping": 5, "gravity": 0.6 } },
-    { "name": "hairSideR", "parent": "head", "pivot": [410, 200], "limits": { "rotation": [-25, 25] }, "physics": { "stiffness": 55, "damping": 7, "gravity": 0.9 } },
-    { "name": "hairSideL", "parent": "head", "pivot": [590, 200], "limits": { "rotation": [-25, 25] }, "physics": { "stiffness": 55, "damping": 7, "gravity": 0.9 } },
+    { "name": "hairSideR", "parent": "head", "pivot": [404, 200], "limits": { "rotation": [-25, 25] }, "physics": { "stiffness": 55, "damping": 7, "gravity": 0.9 } },
+    { "name": "hairSideL", "parent": "head", "pivot": [596, 200], "limits": { "rotation": [-25, 25] }, "physics": { "stiffness": 55, "damping": 7, "gravity": 0.9 } },
     { "name": "hairFront", "parent": "head", "pivot": [500, 135], "limits": { "rotation": [-6, 6] }, "physics": { "stiffness": 90, "damping": 12, "gravity": 0.25 } },
 
     { "name": "upperArmR", "parent": "torso", "pivot": [365, 475], "limits": { "rotation": [-30, 175] }, "joint": { "radius": 34 } },

@@ -133,9 +133,11 @@ export class Animator {
 
   #updateBlink(dt) {
     const config = this.prepared.rig.blink;
-    if (!config || !this.blinkEnabled) { this.blink.step = -1; return {}; }
+    if (!config) return {};
     const sequence = config.sequence ?? [];
     if (this.blink.step < 0) {
+      // blinkEnabled regola solo il battito automatico: triggerBlink() funziona comunque.
+      if (!this.blinkEnabled) return {};
       this.blink.wait -= dt;
       if (this.blink.wait > 0) return {};
       this.blink.step = 0;

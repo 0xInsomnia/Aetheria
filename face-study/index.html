@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#171023">
+<title>Aetheria · Studio del volto</title>
+<style>
+:root{color-scheme:dark;--accent:#bd91ff;--edge:#514165;--muted:#b9aaca}
+*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:radial-gradient(ellipse 75% 55% at 15% 0,#3f2856,#110d1c 68%),#110d1c;color:#f8f0ff;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:20px clamp(16px,4vw,42px) 8px;display:flex;justify-content:space-between;align-items:start;gap:15px}
+a{color:#d9baff;text-decoration:none}a:hover{text-decoration:underline}
+small.kicker{display:block;color:#bd91ff;font-weight:600;letter-spacing:.17em;font-size:11px;margin-bottom:4px}
+h1{font-size:clamp(24px,4vw,36px);margin:0;line-height:1.15;letter-spacing:-.02em}
+.sub{font-size:13px;line-height:1.5;max-width:650px;color:var(--muted);margin:8px 0}
+main{max-width:1190px;margin:auto;display:grid;grid-template-columns:minmax(0,510px) minmax(280px,1fr);align-items:start;gap:24px;padding:12px 22px 38px}
+.portrait{position:relative;width:100%;aspect-ratio:490/545;overflow:hidden;border-radius:19px;border:1px solid #9b66cb;box-shadow:0 25px 90px #090613bd,0 0 48px #a663d633;background:#171024;isolation:isolate}
+.portrait>img,.portrait>canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;user-select:none;pointer-events:none;display:block}
+.portrait>.hair{clip-path:polygon(14% 34%,20% 33%,29% 28%,32% 22%,30% 14%,35% 7%,39% 10%,40% 24%,36% 38%,35% 59%,29% 74%,22% 63%,17% 49%);transform-origin:30% 12%;animation:hair-sway 4.5s ease-in-out infinite alternate;opacity:.73;z-index:2}
+@keyframes hair-sway{from{transform:translateX(-.4%) rotate(-.3deg)}to{transform:translateX(.5%) rotate(.45deg)}}
+.portrait[data-hair=off]>.hair{display:none}
+.portrait>canvas{z-index:3}.fade{position:absolute;inset:auto 0 0;height:21%;background:linear-gradient(transparent,#10081cc2);z-index:4;pointer-events:none}
+.portrait-label{position:absolute;z-index:5;bottom:15px;left:16px;color:#eee4ff;font-size:12px;text-shadow:0 2px 8px #06030a}
+.controls{border-radius:19px;padding:22px;background:linear-gradient(160deg,#281d39ee,#150f22ee);border:1px solid var(--edge);box-shadow:0 15px 50px #08041177}
+h2{font-size:20px;margin:0}h3{font-size:14px;margin:0 0 12px;color:#ddc4ff}
+.controls p{font-size:13px;line-height:1.6;color:var(--muted)}
+section.options{padding-top:17px;margin-top:17px;border-top:1px solid #443653}
+.buttons{display:flex;gap:8px;flex-wrap:wrap}
+button{font:inherit;min-height:42px;padding:10px 14px;border-radius:11px;border:1px solid #6d5486;color:#f7efff;background:#342448;cursor:pointer}
+button.main{background:linear-gradient(110deg,#8a56d4,#ae6be9);border-color:#cda2ff;font-weight:650}
+button:hover{filter:brightness(1.14)}button:focus-visible,input:focus-visible{outline:2px solid white;outline-offset:3px}
+.switch{display:flex;gap:10px;align-items:center;margin-top:14px;font-size:13px}.switch input{accent-color:var(--accent);width:18px;height:18px}
+#status{font-size:12px;color:#e6d1ff;min-height:18px;margin-top:12px}
+.warning{background:#2c223c;padding:13px;border-radius:11px;font-size:12px;line-height:1.6;color:#e7d9f4}
+footer{font-size:12px;color:#ada0bf;max-width:1190px;margin:auto;padding:0 22px 24px}
+@media(max-width:740px){header{display:block;padding:19px 16px 6px}header>a{display:inline-block;margin-top:8px}main{display:flex;flex-direction:column;padding:10px 14px 30px;gap:14px}.portrait{max-width:510px;margin:auto}.controls{width:100%;padding:17px}}
+@media(prefers-reduced-motion:reduce){.portrait>.hair{animation:none!important}*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div><small class="kicker">AETHERIA · STUDIO ARTISTICO 0.10</small><h1>Volto semi-realistico</h1><p class="sub">Prototipo del volto con palpebre generate su un livello Canvas indipendente e una prova di movimento di ciocche. Stiamo valutando la resa prima di collegare l'arte al corpo completo.</p></div><a href="../">← Torna all'app</a></header>
+<main>
+<div class="portrait" id="portrait" data-hair="on" data-eyes="open" role="img" aria-label="Ritratto semi-realistico adulto di Aetheria con occhi viola e capelli argentati">
+  <img id="base" alt="" src="./assets/portrait_open.webp">
+  <img id="hair-image" class="hair" alt="" src="./assets/portrait_open.webp">
+  <canvas id="lids" width="490" height="545" aria-hidden="true"></canvas>
+  <div class="fade"></div><div class="portrait-label">AETHERIA <span style="opacity:.7"> · prove grafiche, non artwork definitivo</span></div>
+</div>
+<div class="controls">
+<h2>Micro-animazioni del volto</h2>
+<p>Il ritratto non viene spostato interamente per simulare gli occhi: le palpebre sono disegnate in un livello trasparente separato e possono cambiare indipendentemente dalla base.</p>
+<section class="options"><h3>Palpebre</h3>
+<div class="buttons"><button class="main" id="blink">◉ Batti le palpebre</button><button id="eyes-open">Apri</button><button id="eyes-close">Chiudi</button></div>
+<label class="switch"><input type="checkbox" id="automatic" checked> Battito automatico</label><div id="status" role="status" aria-live="polite">Occhi aperti</div>
+</section>
+<section class="options"><h3>Capelli</h3>
+<label class="switch"><input type="checkbox" id="sway" checked> Movimento leggero di una ciocca</label>
+<p>La ciocca è su un livello separato, ma il fondo sottostante non è ancora ricostruito: è un test di composizione, non fisica definitiva.</p>
+</section>
+<section class="options"><div class="warning"><strong>Controllo qualità</strong> · Le palpebre sono uno studio procedurale, non illustrazioni pittoriche definitive. Gli occhi e il volto rimangono coerenti con il concept, mentre labiale, giro della testa e deformazioni complesse necessitano di livelli artistici aggiuntivi.</div>
+<p><a href="../character/demo/">Apri anche il rig articolato di prova ↗</a></p></section>
+</div>
+</main>
+<footer>Demo locale senza invio di dati e senza servizi esterni. Nessuna delle reference private viene esposta nel repository.</footer>
+<script>
+(()=>{'use strict';
+const root=document.querySelector('#portrait'),canvas=document.querySelector('#lids'),ctx=canvas.getContext('2d'),image=document.querySelector('#base');
+const checkbox=document.querySelector('#automatic'),status=document.querySelector('#status');const reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;if(reduced)checkbox.checked=false;
+let timer=0,request=0,hold=false;const sleep=ms=>new Promise(resolve=>setTimeout(resolve,ms));
+const eyes=[{cx:214,cy:220,rx:32,ry:14,outer:[183,227],inner:[244,213]},{cx:298,cy:210,rx:34,ry:15,outer:[269,215],inner:[330,199]}];
+function draw(state){
+ root.dataset.eyes=state;ctx.clearRect(0,0,490,545);
+ if(state==='open'){status.textContent='Occhi aperti';return;}
+ const half=state==='half';status.textContent=half?'Palpebre a metà':'Occhi chiusi';
+ for(const eye of eyes){
+  const {cx,cy,rx,ry,outer,inner}=eye;
+  ctx.save();ctx.beginPath();ctx.ellipse(cx,cy,rx,ry,-.14,0,Math.PI*2);ctx.clip();
+  // Reuse nearby skin pixels: the eye is covered by a moving eyelid, not by a full portrait swap.
+  const skinY=cy+17; const targetY=half?cy-ry:cy-ry-2;const targetH=half?ry*1.14:ry*2+4;
+  ctx.drawImage(image,cx-rx-4,skinY,rx*2+8,ry*2+4,cx-rx-2,targetY,rx*2+4,targetH);
+  ctx.restore();
+  const y=half?cy:cy+3;
+  ctx.beginPath();ctx.moveTo(outer[0],outer[1]+(half?-4:0));
+  ctx.quadraticCurveTo(cx,y-3,inner[0],inner[1]+(half?-2:3));
+  ctx.strokeStyle='rgba(85,37,51,.63)';ctx.lineWidth=1.3;ctx.stroke();
+ }
+}
+const frame=async()=>{const id=++request;draw('half');await sleep(85);if(id!==request)return;draw('closed');await sleep(100);if(id!==request)return;draw('half');await sleep(85);if(id!==request)return;draw('open')};
+function schedule(){clearTimeout(timer);if(!checkbox.checked||hold||document.hidden)return;timer=setTimeout(async()=>{await frame();schedule()},3200+Math.random()*2700)}
+document.querySelector('#blink').onclick=()=>{hold=false;void frame().then(schedule)};
+document.querySelector('#eyes-open').onclick=()=>{hold=false;request++;draw('open');schedule()};
+document.querySelector('#eyes-close').onclick=()=>{hold=true;request++;clearTimeout(timer);draw('closed')};
+document.querySelector('#sway').onchange=e=>{root.dataset.hair=e.target.checked?'on':'off'};
+checkbox.onchange=()=>{if(checkbox.checked){hold=false;request++;draw('open')}schedule()};
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&!hold){request++;draw('open')}schedule()});
+if(image.complete&&image.naturalWidth){draw('open')}else{image.addEventListener('load',()=>draw('open'),{once:true})}
+schedule();
+window.AetheriaFaceStudy=Object.freeze({version:'0.10.0',getState:()=>({eyes:root.dataset.eyes,hair:root.dataset.hair,automatic:checkbox.checked}),blink:frame,open:()=>{hold=false;request++;draw('open');schedule()},close:()=>{hold=true;request++;draw('closed')}});
+})();
+</script>
+</body></html>

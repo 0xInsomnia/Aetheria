@@ -84,3 +84,7 @@ I comandi **Stanza → Espressioni e sguardo** guidano direttamente il rig 2D de
 Codice: `src/room-face-controls.mjs` / `src/room-face-controls.css`. API condivisa con `src/room-rig-overlay.mjs`. Verifica Chromium nel workflow GitHub: vista mobile 390×844 e desktop 1280×900, inclusi i controlli del volto. Nessuna modifica al progetto Neliel 3D.
 
 **Limite:** il volto mostrato nel rig è ancora quello schematico dei 56 sprite placeholder, non la nostra Aetheria semi-realistica. Le prime prove per ottenere fotogrammi pittorici di palpebre chiuse non sono state approvate e non sono state pubblicate. Servono livelli dipinti e corretti con bordi, occlusioni e ombre coerenti; il rig non li genera da sé.
+
+## Alpha 0.10 — laboratorio del volto
+
+Nuova [prova artistica del volto semi-realistico](https://0xinsomnia.github.io/Aetheria/face-study/) accessibile anche da **Azioni**. Mostra un concept originale, palpebre su overlay indipendente e una prova di ciocche mobili. **Non** è il master art definitivo né il personaggio riggato: la [demo scheletrica](https://0xinsomnia.github.io/Aetheria/character/demo/) resta separata. Per i dettagli vedi [face-study/README.md](face-study/README.md).

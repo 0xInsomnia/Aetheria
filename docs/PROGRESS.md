@@ -76,3 +76,14 @@ Creato il file originale generato e isolato **\`assets/aetheria-character-concep
 - Aggiunto workflow GitHub Actions `.github/workflows/checks.yml`: `node --test tests/*.test.mjs character/tests/*.test.mjs`, validatore delle giunzioni e controlli sintassi dei moduli. Prima esecuzione GitHub Actions **success** (run 43167181290).
 - **Limite da non nascondere:** il rig usa 56 sprite segnaposto schematici. Nessun livello semi-realistico dipinto è ancora stato importato, nessuna camminata reale, nessuna posa seduta. L'immagine provvisoria presente nella stanza resta un elemento separato, non riggato.
 - Prossima priorità: realizzazione dell'artwork master con orecchie umane e separazione vera dei livelli (volto, capelli, busto, arti, vestiti), importazione nel rig e verifica della resa mobile. Non confondere la demo tecnica con la qualità finale desiderata.
+
+## Alpha 0.8 — collegamento effettivo del rig nella stanza (12 novembre 2026)
+
+- La vista stanza ospita ora il rig tecnico tramite \`src/room-rig-overlay.mjs\`; selezione esplicita **Illustrata / Rig animato · demo**.
+- Demo live: 28 ossa, 56 PNG segnaposto, animazioni di respirazione/capelli, saluto, blink, quattro espressioni e tre palette, usando gli stessi file \`character/\` della PR #1.
+- L'avatar illustrato statico resta predefinito e viene ripristinato se il rig non è disponibile. Lo sfondo arredato rimane indipendente.
+- Il rendering Canvas si sospende se la scena è nascosta; rispetta la preferenza \`prefers-reduced-motion\`; la palette del manichino è indipendente dalla luce della stanza e dalla UI.
+- Test Node (motore, giunzioni, sintassi): **success**. Test **Playwright Chromium reale** su 390×844 e 1280×900: **success**, 587 e 1012 campioni opachi nel Canvas; cambio palette, pulsante saluto, ritorno al concept, zero errori JavaScript. Run GitHub Actions 43169506173. Nessun test su Samsung Android fisico.
+- La pipeline serve ancora esclusivamente il manichino tecnico. Il set artistico semi-realistico finale resta da produrre, suddividere e riggare; non abbiamo ancora dimostrato che la resa alta dei concept sia ottenibile in movimento con questi layer rigidi. Camminata/seduta non implementate.
+
+**Prossima milestone:** prima serie di layer realmente illustrati (testa, occhi e capelli) con pivot adattati, lasciando il resto temporaneamente provvisorio e validando la qualità in movimento.

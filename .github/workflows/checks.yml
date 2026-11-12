@@ -26,6 +26,7 @@ jobs:
           node --check src/room-rig-overlay.mjs
           node --check src/room-face-controls.mjs
           node --check tests/room-rig-browser.mjs
+          node --check tests/face-study-browser.mjs
           node --check character/demo/demo.mjs
           node --check character/src/renderer-canvas.mjs
 
@@ -43,4 +44,6 @@ jobs:
       - name: Installazione Chromium
         run: npx playwright install --with-deps chromium
       - name: Test interazione su mobile e desktop
-        run: node tests/room-rig-browser.mjs
+        run: |
+          node tests/room-rig-browser.mjs
+          node tests/face-study-browser.mjs

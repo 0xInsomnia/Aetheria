@@ -76,3 +76,11 @@ I controlli per spostare la figura fra centro, letto, scrivania e divano rimango
 Nuovi file: \`src/room-rig-overlay.mjs\` e \`src/room-rig-overlay.css\`. Il test \`tests/room-rig-browser.mjs\` usa Playwright + Chromium con le immagini reali del repository e verifica mobile e desktop. Il workflow GitHub Actions ha completato i test in entrambe le viewport con esito positivo.
 
 [Apri Aetheria Alpha 0.8](https://0xinsomnia.github.io/Aetheria/?v=0.8)
+
+## Alpha 0.9 — espressioni articolate nella stanza (12 novembre 2026)
+
+I comandi **Stanza → Espressioni e sguardo** guidano direttamente il rig 2D della 0.8: neutra, sorriso, curiosa, sorpresa, battito, saluto, inclinazione della testa e occhi che seguono il puntatore. Un riquadro ingrandito mostra i fotogrammi del **medesimo Canvas articolato**, non una seconda illustrazione. I pulsanti della scheda Azioni influenzano il rig solo quando la modalità *Rig animato* è attiva. La modalità illustrata resta predefinita.
+
+Codice: `src/room-face-controls.mjs` / `src/room-face-controls.css`. API condivisa con `src/room-rig-overlay.mjs`. Verifica Chromium nel workflow GitHub: vista mobile 390×844 e desktop 1280×900, inclusi i controlli del volto. Nessuna modifica al progetto Neliel 3D.
+
+**Limite:** il volto mostrato nel rig è ancora quello schematico dei 56 sprite placeholder, non la nostra Aetheria semi-realistica. Le prime prove per ottenere fotogrammi pittorici di palpebre chiuse non sono state approvate e non sono state pubblicate. Servono livelli dipinti e corretti con bordi, occlusioni e ombre coerenti; il rig non li genera da sé.

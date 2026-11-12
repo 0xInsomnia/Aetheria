@@ -1,0 +1,13 @@
+/* Alpha 0.8: schematic animated rig is opt-in, not a replacement for the concept illustration. */
+#room-v04 .room-avatar-anchor .room-rig-canvas{display:none;width:100%;height:auto;aspect-ratio:1/2;pointer-events:none}
+#room-v04 .room-avatar-anchor.rig-preview-active .room-rig-canvas:not([hidden]){display:block}
+#room-v04 .room-avatar-anchor.rig-preview-active .room-avatar-art{display:none!important}
+.room-rig-controls{padding:14px 12px;margin-top:12px;border:1px solid rgba(var(--accent-rgb),.34);background:#160f27;border-radius:13px}
+.room-rig-controls strong{display:block;font-size:13px;color:#fff}
+.room-rig-controls p{margin:7px 0 12px;color:#cbbadf;font-size:12px;line-height:1.6}
+.room-rig-options{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:8px}
+.room-rig-options button,.room-rig-options select{padding:9px 11px;min-height:40px;max-width:100%;border:1px solid #75628f;border-radius:9px;background:#241a37;color:#fff;font-size:12px}
+.room-rig-options button[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent);background:rgba(var(--accent-rgb),.22)}
+.room-rig-options button:disabled,.room-rig-options select:disabled{opacity:.43;cursor:not-allowed}
+.room-rig-controls .room-rig-status{font-size:11px;margin:10px 0 0;color:#d2c3e2}
+@media(prefers-reduced-motion:reduce){#room-v04 .room-avatar-anchor.rig-preview-active{transition:none}}

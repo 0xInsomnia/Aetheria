@@ -177,7 +177,7 @@ function init() {
     setMode:changeMode,
     wave:()=>animator?.play('wave'),
     blink:()=>animator?.triggerBlink(),
-    setExpression:(name)=>animator?.setExpression(name)??false,
+    setExpression:(name)=>{const ok=animator?.setExpression(name)??false;if(ok){state.expression=name;expression.value=name;persist();}return ok;},
     setGaze:(x,y)=>animator?.setGaze(x,y),
     setTilt:(degrees)=>animator?.setHeadTilt(degrees)
   }),configurable:false});

@@ -1,0 +1,154 @@
+{
+  "format": "aetheria-rig",
+  "version": 1,
+  "note": "Coordinate nello spazio del canvas in posa di riposo. Suffissi R/L = destra/sinistra del personaggio (R appare a sinistra sullo schermo). L'ordine dei livelli è l'ordine di disegno, dal fondo al primo piano.",
+  "canvas": { "width": 1000, "height": 2000 },
+
+  "bones": [
+    { "name": "root", "parent": null, "pivot": [500, 880] },
+    { "name": "hips", "parent": "root", "pivot": [500, 880], "limits": { "rotation": [-10, 10] } },
+    { "name": "torso", "parent": "hips", "pivot": [500, 830], "limits": { "rotation": [-12, 12] } },
+    { "name": "neck", "parent": "torso", "pivot": [500, 420], "limits": { "rotation": [-15, 15] }, "joint": { "radius": 26 } },
+    { "name": "head", "parent": "neck", "pivot": [500, 330], "limits": { "rotation": [-20, 20] }, "joint": { "radius": 22 } },
+
+    { "name": "browR", "parent": "head", "pivot": [455, 214], "limits": { "y": [-14, 8], "rotation": [-15, 15] } },
+    { "name": "browL", "parent": "head", "pivot": [545, 214], "limits": { "y": [-14, 8], "rotation": [-15, 15] } },
+    { "name": "eyeR", "parent": "head", "pivot": [455, 245], "limits": { "x": [-10, 10], "y": [-6, 6] } },
+    { "name": "eyeL", "parent": "head", "pivot": [545, 245], "limits": { "x": [-10, 10], "y": [-6, 6] } },
+
+    { "name": "hairBack", "parent": "head", "pivot": [500, 170], "limits": { "rotation": [-12, 12] }, "physics": { "stiffness": 40, "damping": 9, "gravity": 0.7 } },
+    { "name": "ponytail", "parent": "head", "pivot": [540, 140], "limits": { "rotation": [-30, 30] }, "physics": { "stiffness": 34, "damping": 6, "gravity": 0.8 } },
+    { "name": "ponytailTip", "parent": "ponytail", "pivot": [650, 500], "limits": { "rotation": [-40, 40] }, "physics": { "stiffness": 26, "damping": 5, "gravity": 0.6 } },
+    { "name": "hairSideR", "parent": "head", "pivot": [404, 200], "limits": { "rotation": [-25, 25] }, "physics": { "stiffness": 55, "damping": 7, "gravity": 0.9 } },
+    { "name": "hairSideL", "parent": "head", "pivot": [596, 200], "limits": { "rotation": [-25, 25] }, "physics": { "stiffness": 55, "damping": 7, "gravity": 0.9 } },
+    { "name": "hairFront", "parent": "head", "pivot": [500, 135], "limits": { "rotation": [-6, 6] }, "physics": { "stiffness": 90, "damping": 12, "gravity": 0.25 } },
+
+    { "name": "upperArmR", "parent": "torso", "pivot": [365, 475], "limits": { "rotation": [-30, 175] }, "joint": { "radius": 34 } },
+    { "name": "forearmR", "parent": "upperArmR", "pivot": [335, 750], "limits": { "rotation": [-150, 150] }, "joint": { "radius": 30 } },
+    { "name": "handR", "parent": "forearmR", "pivot": [315, 1010], "limits": { "rotation": [-60, 60] }, "joint": { "radius": 22 } },
+    { "name": "upperArmL", "parent": "torso", "pivot": [635, 475], "limits": { "rotation": [-175, 30] }, "joint": { "radius": 34 } },
+    { "name": "forearmL", "parent": "upperArmL", "pivot": [665, 750], "limits": { "rotation": [-150, 150] }, "joint": { "radius": 30 } },
+    { "name": "handL", "parent": "forearmL", "pivot": [685, 1010], "limits": { "rotation": [-60, 60] }, "joint": { "radius": 22 } },
+
+    { "name": "thighR", "parent": "hips", "pivot": [435, 930], "limits": { "rotation": [-45, 45] }, "joint": { "radius": 60 } },
+    { "name": "shinR", "parent": "thighR", "pivot": [425, 1340], "limits": { "rotation": [-90, 90] }, "joint": { "radius": 44 } },
+    { "name": "footR", "parent": "shinR", "pivot": [420, 1760], "limits": { "rotation": [-40, 40] }, "joint": { "radius": 30 } },
+    { "name": "thighL", "parent": "hips", "pivot": [565, 930], "limits": { "rotation": [-45, 45] }, "joint": { "radius": 60 } },
+    { "name": "shinL", "parent": "thighL", "pivot": [575, 1340], "limits": { "rotation": [-90, 90] }, "joint": { "radius": 44 } },
+    { "name": "footL", "parent": "shinL", "pivot": [580, 1760], "limits": { "rotation": [-40, 40] }, "joint": { "radius": 30 } },
+
+    { "name": "strap", "parent": "hips", "pivot": [600, 850], "limits": { "rotation": [-35, 35] }, "physics": { "stiffness": 45, "damping": 5, "gravity": 0.9 } }
+  ],
+
+  "tintGroups": {
+    "outfitPrimary": { "label": "Tessuto principale", "default": "#2a2733" },
+    "outfitAccent": { "label": "Accenti", "default": "#8b5cf6" }
+  },
+
+  "palettes": {
+    "nero-viola": { "outfitPrimary": "#2a2733", "outfitAccent": "#8b5cf6" },
+    "nero-rosso": { "outfitPrimary": "#26222a", "outfitAccent": "#e11d48" },
+    "chiaro-azzurro": { "outfitPrimary": "#dfe3ee", "outfitAccent": "#38bdf8" }
+  },
+
+  "slots": {
+    "mouth": { "default": "neutral" },
+    "eyelidR": { "default": "open" },
+    "eyelidL": { "default": "open" }
+  },
+
+  "layers": [
+    { "name": "hair_back", "bone": "hairBack" },
+    { "name": "ponytail_tip", "bone": "ponytailTip" },
+    { "name": "ponytail", "bone": "ponytail" },
+
+    { "name": "thigh_L", "bone": "thighL" },
+    { "name": "foot_L", "bone": "footL" },
+    { "name": "boot_foot_L", "bone": "footL", "tint": "outfitPrimary" },
+    { "name": "shin_L", "bone": "shinL" },
+    { "name": "boot_shin_L", "bone": "shinL", "tint": "outfitPrimary" },
+    { "name": "boot_trim_L", "bone": "shinL", "tint": "outfitAccent" },
+
+    { "name": "thigh_R", "bone": "thighR" },
+    { "name": "tattoo_thigh_R", "bone": "thighR" },
+    { "name": "foot_R", "bone": "footR" },
+    { "name": "boot_foot_R", "bone": "footR", "tint": "outfitPrimary" },
+    { "name": "shin_R", "bone": "shinR" },
+    { "name": "boot_shin_R", "bone": "shinR", "tint": "outfitPrimary" },
+    { "name": "boot_trim_R", "bone": "shinR", "tint": "outfitAccent" },
+
+    { "name": "torso", "bone": "torso" },
+    { "name": "top", "bone": "torso", "tint": "outfitPrimary" },
+    { "name": "top_trim", "bone": "torso", "tint": "outfitAccent" },
+
+    { "name": "hips", "bone": "hips" },
+    { "name": "shorts", "bone": "hips", "tint": "outfitPrimary" },
+    { "name": "belt", "bone": "hips", "tint": "outfitAccent" },
+    { "name": "strap", "bone": "strap", "tint": "outfitAccent" },
+    { "name": "neck", "bone": "neck" },
+
+    { "name": "head", "bone": "head" },
+    { "name": "eye_white_R", "bone": "head" },
+    { "name": "eye_white_L", "bone": "head" },
+    { "name": "iris_R", "bone": "eyeR", "clip": "eye_white_R" },
+    { "name": "iris_L", "bone": "eyeL", "clip": "eye_white_L" },
+    { "name": "eyelid_R_open", "bone": "head", "slot": "eyelidR", "variant": "open" },
+    { "name": "eyelid_R_half", "bone": "head", "slot": "eyelidR", "variant": "half" },
+    { "name": "eyelid_R_closed", "bone": "head", "slot": "eyelidR", "variant": "closed" },
+    { "name": "eyelid_L_open", "bone": "head", "slot": "eyelidL", "variant": "open" },
+    { "name": "eyelid_L_half", "bone": "head", "slot": "eyelidL", "variant": "half" },
+    { "name": "eyelid_L_closed", "bone": "head", "slot": "eyelidL", "variant": "closed" },
+    { "name": "brow_R", "bone": "browR" },
+    { "name": "brow_L", "bone": "browL" },
+    { "name": "mouth_neutral", "bone": "head", "slot": "mouth", "variant": "neutral" },
+    { "name": "mouth_smile", "bone": "head", "slot": "mouth", "variant": "smile" },
+    { "name": "mouth_curious", "bone": "head", "slot": "mouth", "variant": "curious" },
+    { "name": "mouth_surprised", "bone": "head", "slot": "mouth", "variant": "surprised" },
+
+    { "name": "hair_side_R", "bone": "hairSideR" },
+    { "name": "hair_side_L", "bone": "hairSideL" },
+    { "name": "hair_front", "bone": "hairFront" },
+
+    { "name": "upper_arm_L", "bone": "upperArmL" },
+    { "name": "sleeve_upper_L", "bone": "upperArmL", "tint": "outfitPrimary" },
+    { "name": "hand_L", "bone": "handL" },
+    { "name": "forearm_L", "bone": "forearmL" },
+    { "name": "sleeve_fore_L", "bone": "forearmL", "tint": "outfitPrimary" },
+    { "name": "cuff_L", "bone": "forearmL", "tint": "outfitAccent" },
+
+    { "name": "upper_arm_R", "bone": "upperArmR" },
+    { "name": "sleeve_upper_R", "bone": "upperArmR", "tint": "outfitPrimary" },
+    { "name": "hand_R", "bone": "handR" },
+    { "name": "forearm_R", "bone": "forearmR" },
+    { "name": "sleeve_fore_R", "bone": "forearmR", "tint": "outfitPrimary" },
+    { "name": "cuff_R", "bone": "forearmR", "tint": "outfitAccent" }
+  ],
+
+  "expressions": {
+    "neutral": { "label": "Neutra", "slots": { "mouth": "neutral" }, "pose": {} },
+    "smile": { "label": "Sorridente", "slots": { "mouth": "smile" }, "pose": { "browR": { "y": -3 }, "browL": { "y": -3 } } },
+    "curious": {
+      "label": "Curiosa",
+      "slots": { "mouth": "curious" },
+      "pose": { "browL": { "y": -9, "rotation": -7 }, "browR": { "y": 2, "rotation": -3 }, "head": { "rotation": 6 } }
+    },
+    "surprised": {
+      "label": "Sorpresa",
+      "slots": { "mouth": "surprised" },
+      "pose": {
+        "browR": { "y": -12 }, "browL": { "y": -12 },
+        "eyeR": { "scaleX": 0.86, "scaleY": 0.86 }, "eyeL": { "scaleX": 0.86, "scaleY": 0.86 }
+      }
+    }
+  },
+
+  "blink": {
+    "slots": ["eyelidR", "eyelidL"],
+    "sequence": [["half", 45], ["closed", 75], ["half", 55]],
+    "interval": [2400, 6000]
+  },
+
+  "gaze": { "bones": ["eyeR", "eyeL"], "rangeX": 9, "rangeY": 5 },
+
+  "headTilt": { "bones": { "neck": 0.3, "head": 0.7 } }
+}

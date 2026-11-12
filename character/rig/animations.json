@@ -1,0 +1,112 @@
+{
+  "format": "aetheria-clips",
+  "version": 1,
+  "note": "Tempi in millisecondi. Ogni chiave è un delta rispetto alla posa di riposo: x, y, rotation si sommano; scaleX e scaleY si moltiplicano. ease: linear | smooth (predefinito) | in | out.",
+  "clips": {
+    "breathe": {
+      "loop": true,
+      "duration": 4200,
+      "tracks": {
+        "torso": [
+          { "at": 0, "y": 0, "scaleY": 1 },
+          { "at": 1900, "y": -2, "scaleY": 1.012 },
+          { "at": 4200, "y": 0, "scaleY": 1 }
+        ],
+        "upperArmR": [
+          { "at": 0, "rotation": 0 },
+          { "at": 1900, "rotation": 1.2 },
+          { "at": 4200, "rotation": 0 }
+        ],
+        "upperArmL": [
+          { "at": 0, "rotation": 0 },
+          { "at": 1900, "rotation": -1.2 },
+          { "at": 4200, "rotation": 0 }
+        ],
+        "head": [
+          { "at": 0, "y": 0 },
+          { "at": 2100, "y": -1.5 },
+          { "at": 4200, "y": 0 }
+        ]
+      }
+    },
+
+    "hairIdle": {
+      "loop": true,
+      "duration": 5600,
+      "tracks": {
+        "hairSideR": [
+          { "at": 0, "rotation": -1.2 },
+          { "at": 2800, "rotation": 1.6 },
+          { "at": 5600, "rotation": -1.2 }
+        ],
+        "hairSideL": [
+          { "at": 0, "rotation": 1.4 },
+          { "at": 2600, "rotation": -1.4 },
+          { "at": 5600, "rotation": 1.4 }
+        ],
+        "ponytail": [
+          { "at": 0, "rotation": -2 },
+          { "at": 2800, "rotation": 2 },
+          { "at": 5600, "rotation": -2 }
+        ],
+        "ponytailTip": [
+          { "at": 0, "rotation": 3 },
+          { "at": 1400, "rotation": -1 },
+          { "at": 4200, "rotation": 4 },
+          { "at": 5600, "rotation": 3 }
+        ],
+        "strap": [
+          { "at": 0, "rotation": -2 },
+          { "at": 2800, "rotation": 2 },
+          { "at": 5600, "rotation": -2 }
+        ]
+      }
+    },
+
+    "wave": {
+      "loop": false,
+      "duration": 2700,
+      "tracks": {
+        "upperArmR": [
+          { "at": 0, "rotation": 0 },
+          { "at": 480, "rotation": 138, "ease": "out" },
+          { "at": 2150, "rotation": 138 },
+          { "at": 2700, "rotation": 0 }
+        ],
+        "forearmR": [
+          { "at": 0, "rotation": 0 },
+          { "at": 480, "rotation": 34 },
+          { "at": 760, "rotation": -8 },
+          { "at": 1040, "rotation": 34 },
+          { "at": 1320, "rotation": -8 },
+          { "at": 1600, "rotation": 34 },
+          { "at": 1880, "rotation": -8 },
+          { "at": 2150, "rotation": 20 },
+          { "at": 2700, "rotation": 0 }
+        ],
+        "handR": [
+          { "at": 0, "rotation": 0 },
+          { "at": 480, "rotation": 12 },
+          { "at": 760, "rotation": -10 },
+          { "at": 1040, "rotation": 12 },
+          { "at": 1320, "rotation": -10 },
+          { "at": 1600, "rotation": 12 },
+          { "at": 1880, "rotation": -10 },
+          { "at": 2700, "rotation": 0 }
+        ],
+        "torso": [
+          { "at": 0, "rotation": 0 },
+          { "at": 480, "rotation": 1.5 },
+          { "at": 2150, "rotation": 1.5 },
+          { "at": 2700, "rotation": 0 }
+        ],
+        "head": [
+          { "at": 0, "rotation": 0 },
+          { "at": 480, "rotation": -4 },
+          { "at": 2150, "rotation": -4 },
+          { "at": 2700, "rotation": 0 }
+        ]
+      }
+    }
+  }
+}

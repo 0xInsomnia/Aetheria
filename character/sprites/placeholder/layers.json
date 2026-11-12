@@ -1,0 +1,404 @@
+{
+  "format": "aetheria-sprites",
+  "version": 1,
+  "name": "placeholder",
+  "note": "Manichino segnaposto generato da tools/generate-placeholders.mjs. Non è il personaggio definitivo.",
+  "canvas": {
+    "width": 1000,
+    "height": 2000
+  },
+  "layers": {
+    "hair_back": {
+      "image": "hair_back.png",
+      "x": 384,
+      "y": 88,
+      "width": 232,
+      "height": 564
+    },
+    "ponytail_tip": {
+      "image": "ponytail_tip.png",
+      "x": 608,
+      "y": 458,
+      "width": 90,
+      "height": 520
+    },
+    "ponytail": {
+      "image": "ponytail.png",
+      "x": 492,
+      "y": 92,
+      "width": 200,
+      "height": 450
+    },
+    "thigh_L": {
+      "image": "thigh_L.png",
+      "x": 493,
+      "y": 858,
+      "width": 144,
+      "height": 534
+    },
+    "foot_L": {
+      "image": "foot_L.png",
+      "x": 528,
+      "y": 1724,
+      "width": 128,
+      "height": 130
+    },
+    "boot_foot_L": {
+      "image": "boot_foot_L.png",
+      "x": 524,
+      "y": 1720,
+      "width": 136,
+      "height": 138
+    },
+    "shin_L": {
+      "image": "shin_L.png",
+      "x": 523,
+      "y": 1288,
+      "width": 104,
+      "height": 508
+    },
+    "boot_shin_L": {
+      "image": "boot_shin_L.png",
+      "x": 525,
+      "y": 1440,
+      "width": 103,
+      "height": 360
+    },
+    "boot_trim_L": {
+      "image": "boot_trim_L.png",
+      "x": 524,
+      "y": 1430,
+      "width": 105,
+      "height": 122
+    },
+    "thigh_R": {
+      "image": "thigh_R.png",
+      "x": 363,
+      "y": 858,
+      "width": 144,
+      "height": 534
+    },
+    "tattoo_thigh_R": {
+      "image": "tattoo_thigh_R.png",
+      "x": 399,
+      "y": 1080,
+      "width": 62,
+      "height": 110
+    },
+    "foot_R": {
+      "image": "foot_R.png",
+      "x": 344,
+      "y": 1724,
+      "width": 128,
+      "height": 130
+    },
+    "boot_foot_R": {
+      "image": "boot_foot_R.png",
+      "x": 340,
+      "y": 1720,
+      "width": 136,
+      "height": 138
+    },
+    "shin_R": {
+      "image": "shin_R.png",
+      "x": 373,
+      "y": 1288,
+      "width": 104,
+      "height": 508
+    },
+    "boot_shin_R": {
+      "image": "boot_shin_R.png",
+      "x": 372,
+      "y": 1440,
+      "width": 103,
+      "height": 360
+    },
+    "boot_trim_R": {
+      "image": "boot_trim_R.png",
+      "x": 371,
+      "y": 1430,
+      "width": 105,
+      "height": 122
+    },
+    "torso": {
+      "image": "torso.png",
+      "x": 318,
+      "y": 389,
+      "width": 364,
+      "height": 505
+    },
+    "top": {
+      "image": "top.png",
+      "x": 360,
+      "y": 498,
+      "width": 280,
+      "height": 272
+    },
+    "top_trim": {
+      "image": "top_trim.png",
+      "x": 396,
+      "y": 752,
+      "width": 208,
+      "height": 20
+    },
+    "hips": {
+      "image": "hips.png",
+      "x": 348,
+      "y": 783,
+      "width": 304,
+      "height": 215
+    },
+    "shorts": {
+      "image": "shorts.png",
+      "x": 345,
+      "y": 780,
+      "width": 310,
+      "height": 221
+    },
+    "belt": {
+      "image": "belt.png",
+      "x": 371,
+      "y": 824,
+      "width": 258,
+      "height": 28
+    },
+    "strap": {
+      "image": "strap.png",
+      "x": 590,
+      "y": 840,
+      "width": 37,
+      "height": 191
+    },
+    "neck": {
+      "image": "neck.png",
+      "x": 466,
+      "y": 301,
+      "width": 68,
+      "height": 158
+    },
+    "head": {
+      "image": "head.png",
+      "x": 388,
+      "y": 118,
+      "width": 224,
+      "height": 244
+    },
+    "eye_white_R": {
+      "image": "eye_white_R.png",
+      "x": 429,
+      "y": 230,
+      "width": 52,
+      "height": 30
+    },
+    "eye_white_L": {
+      "image": "eye_white_L.png",
+      "x": 519,
+      "y": 230,
+      "width": 52,
+      "height": 30
+    },
+    "iris_R": {
+      "image": "iris_R.png",
+      "x": 440,
+      "y": 230,
+      "width": 30,
+      "height": 30
+    },
+    "iris_L": {
+      "image": "iris_L.png",
+      "x": 530,
+      "y": 230,
+      "width": 30,
+      "height": 30
+    },
+    "eyelid_R_open": {
+      "image": "eyelid_R_open.png",
+      "x": 428,
+      "y": 229,
+      "width": 54,
+      "height": 18
+    },
+    "eyelid_R_half": {
+      "image": "eyelid_R_half.png",
+      "x": 426,
+      "y": 228,
+      "width": 58,
+      "height": 23
+    },
+    "eyelid_R_closed": {
+      "image": "eyelid_R_closed.png",
+      "x": 427,
+      "y": 228,
+      "width": 56,
+      "height": 34
+    },
+    "eyelid_L_open": {
+      "image": "eyelid_L_open.png",
+      "x": 518,
+      "y": 229,
+      "width": 54,
+      "height": 18
+    },
+    "eyelid_L_half": {
+      "image": "eyelid_L_half.png",
+      "x": 516,
+      "y": 228,
+      "width": 58,
+      "height": 23
+    },
+    "eyelid_L_closed": {
+      "image": "eyelid_L_closed.png",
+      "x": 517,
+      "y": 228,
+      "width": 56,
+      "height": 34
+    },
+    "brow_R": {
+      "image": "brow_R.png",
+      "x": 430,
+      "y": 205,
+      "width": 50,
+      "height": 18
+    },
+    "brow_L": {
+      "image": "brow_L.png",
+      "x": 520,
+      "y": 205,
+      "width": 50,
+      "height": 18
+    },
+    "mouth_neutral": {
+      "image": "mouth_neutral.png",
+      "x": 480,
+      "y": 313,
+      "width": 40,
+      "height": 10
+    },
+    "mouth_smile": {
+      "image": "mouth_smile.png",
+      "x": 469,
+      "y": 307,
+      "width": 62,
+      "height": 20
+    },
+    "mouth_curious": {
+      "image": "mouth_curious.png",
+      "x": 496,
+      "y": 311,
+      "width": 18,
+      "height": 16
+    },
+    "mouth_surprised": {
+      "image": "mouth_surprised.png",
+      "x": 485,
+      "y": 304,
+      "width": 30,
+      "height": 38
+    },
+    "hair_side_R": {
+      "image": "hair_side_R.png",
+      "x": 377,
+      "y": 178,
+      "width": 49,
+      "height": 303
+    },
+    "hair_side_L": {
+      "image": "hair_side_L.png",
+      "x": 574,
+      "y": 178,
+      "width": 49,
+      "height": 303
+    },
+    "hair_front": {
+      "image": "hair_front.png",
+      "x": 392,
+      "y": 110,
+      "width": 216,
+      "height": 97
+    },
+    "upper_arm_L": {
+      "image": "upper_arm_L.png",
+      "x": 593,
+      "y": 433,
+      "width": 108,
+      "height": 353
+    },
+    "sleeve_upper_L": {
+      "image": "sleeve_upper_L.png",
+      "x": 589,
+      "y": 429,
+      "width": 116,
+      "height": 361
+    },
+    "hand_L": {
+      "image": "hand_L.png",
+      "x": 651,
+      "y": 982,
+      "width": 62,
+      "height": 133
+    },
+    "forearm_L": {
+      "image": "forearm_L.png",
+      "x": 630,
+      "y": 715,
+      "width": 83,
+      "height": 323
+    },
+    "sleeve_fore_L": {
+      "image": "sleeve_fore_L.png",
+      "x": 626,
+      "y": 711,
+      "width": 88,
+      "height": 270
+    },
+    "cuff_L": {
+      "image": "cuff_L.png",
+      "x": 644,
+      "y": 897,
+      "width": 71,
+      "height": 95
+    },
+    "upper_arm_R": {
+      "image": "upper_arm_R.png",
+      "x": 299,
+      "y": 433,
+      "width": 108,
+      "height": 353
+    },
+    "sleeve_upper_R": {
+      "image": "sleeve_upper_R.png",
+      "x": 295,
+      "y": 429,
+      "width": 116,
+      "height": 361
+    },
+    "hand_R": {
+      "image": "hand_R.png",
+      "x": 287,
+      "y": 982,
+      "width": 62,
+      "height": 133
+    },
+    "forearm_R": {
+      "image": "forearm_R.png",
+      "x": 287,
+      "y": 715,
+      "width": 83,
+      "height": 323
+    },
+    "sleeve_fore_R": {
+      "image": "sleeve_fore_R.png",
+      "x": 286,
+      "y": 711,
+      "width": 88,
+      "height": 270
+    },
+    "cuff_R": {
+      "image": "cuff_R.png",
+      "x": 285,
+      "y": 897,
+      "width": 71,
+      "height": 95
+    }
+  }
+}

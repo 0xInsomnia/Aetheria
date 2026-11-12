@@ -99,3 +99,12 @@ Creato il file originale generato e isolato **\`assets/aetheria-character-concep
 - **Non ancora eseguiti:** validazione Android fisico, prova di performance con texture semi-realistiche ad alta definizione, rig finale su artwork definitivo. La prova grafica di chiusura palpebre ottenuta con ricostruzione automatica è stata giudicata insufficiente e non è stata caricata sul repository pubblico.
 
 Prossimo checkpoint: artwork master con volto e orecchie umane; occhi e palpebre pittorici su layer corretti; preparazione dei capelli separati; test di qualità delle occlusioni in un rig a ingrandimento, prima del corpo intero. Resta vietato copiare le reference private nella repository pubblica.
+
+## Alpha 0.10 — primo studio pittorico del volto (12 novembre 2026)
+
+- Nuovo [laboratorio volto](https://0xinsomnia.github.io/Aetheria/face-study/) con un concept semi-realistico originale generato per il progetto (senza pubblicare reference private).
+- Palpebre su livello Canvas separato, battito manuale/automatico, stato aperto/chiuso e prova di ciocche su livello indipendente.
+- Collegamento aggiunto da **Azioni** nell'app principale. La stanza Alpha 0.9 e la demo del rig articolato restano intatte.
+- Nuovo test Chromium `tests/face-study-browser.mjs` su viewport 390×844 e 1280×900: verifica immagine caricata, pixel realmente disegnati nel layer occhi, controlli e assenza di overflow. Integrato in GitHub Actions.
+- **Limiti:** la chiusura degli occhi è ricostruita proceduralmente; ancora imperfetta e non adatta alla produzione. Il ritratto non è un set completo di livelli e non è collegato alla gerarchia di ossa. I capelli non dispongono ancora delle parti nascoste ricostruite. Camminata, seduta, labiale e outfit non vengono risolti da questa prova.
+- Priorità successiva: ridisegnare palpebre e capelli come asset pittorici autonomi, importare le varianti nel rig e testare la coerenza con figura intera e stanza.

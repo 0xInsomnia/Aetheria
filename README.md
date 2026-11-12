@@ -97,3 +97,9 @@ Nuova [prova artistica del volto semi-realistico](https://0xinsomnia.github.io/A
 **Non è ancora il personaggio definitivo riggato.** Per trasformare l'immagine in un rig pittorico occorre prima una posa neutra frontale coerente, orecchie umane e livelli con le parti nascoste ricostruite. Il vecchio esperimento con le palpebre sovrapposte resta archiviato, non approvato come stile di produzione.
 
 [Dettagli e limiti dello studio](character/artwork-fit/README.md).
+
+## Alpha 0.12 — primi ritagli reali del personaggio
+
+[Apri lo studio dei livelli](https://0xinsomnia.github.io/Aetheria/character/pose-lab/). Il concept trasparente già presente in `assets/` è ora separabile in **testa, capelli posteriori e corpo**, con poligoni di taglio modificabili, pivot, prove di piccole rotazioni ed esportazione dei tre PNG RGBA insieme al JSON delle maschere. I tre livelli ricomposti a posa zero sono stati confrontati con l'illustrazione generata locale: **0 pixel differenti**. Quattro nuovi test Node verificano formato e geometria.
+
+**Limite artistico e tecnico:** la sorgente rimane il concept dinamico provvisorio con orecchie appuntite (non l'identità approvata). Le rotazioni rivelano fessure perché mancano superfici pittoriche dietro ai tagli. Il laboratorio non sostituisce il rig a 28 ossa, non contiene il nuovo master in A-pose e non introduce il finto blink precedentemente rifiutato. I prossimi asset vanno ridisegnati in posa neutra con orecchie normali, poi il rig completo potrà riutilizzare i livelli.

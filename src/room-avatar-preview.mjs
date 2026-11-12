@@ -56,7 +56,7 @@
    if(zoneMap[zone])place(zoneMap[zone]);
  });
  render();
- const tag=document.querySelector('.tag'); if(tag)tag.textContent='ALPHA 0.6';
+ const tag=document.querySelector('.tag'); if(tag)tag.textContent='ALPHA 0.7';
  Object.defineProperty(window,'AetheriaCharacterPreview',{
    configurable:false,
    value:Object.freeze({version:'0.6.0',getState:()=>({...state}),place})

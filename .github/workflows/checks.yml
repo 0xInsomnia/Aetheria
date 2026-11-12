@@ -24,6 +24,7 @@ jobs:
         run: |
           node --check src/room-avatar-preview.mjs
           node --check src/room-rig-overlay.mjs
+          node --check src/room-face-controls.mjs
           node --check tests/room-rig-browser.mjs
           node --check character/demo/demo.mjs
           node --check character/src/renderer-canvas.mjs

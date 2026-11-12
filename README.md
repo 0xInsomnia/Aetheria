@@ -88,3 +88,12 @@ Codice: `src/room-face-controls.mjs` / `src/room-face-controls.css`. API condivi
 ## Alpha 0.10 — laboratorio del volto
 
 Nuova [prova artistica del volto semi-realistico](https://0xinsomnia.github.io/Aetheria/face-study/) accessibile anche da **Azioni**. Mostra un concept originale, palpebre su overlay indipendente e una prova di ciocche mobili. **Non** è il master art definitivo né il personaggio riggato: la [demo scheletrica](https://0xinsomnia.github.io/Aetheria/character/demo/) resta separata. Per i dettagli vedi [face-study/README.md](face-study/README.md).
+
+
+## Alpha 0.11 — studio di allineamento anatomico
+
+[Apri lo studio del modello](https://0xinsomnia.github.io/Aetheria/character/artwork-fit/) per osservare il concept semi-realistico con i **28 punti del rig** e regolarne i pivot. Include zoom volto, selezione per regioni ed esportazione dei punti in JSON. Non modifica il rig principale; i punti sono in bozza e vengono salvati soltanto nel browser.
+
+**Non è ancora il personaggio definitivo riggato.** Per trasformare l'immagine in un rig pittorico occorre prima una posa neutra frontale coerente, orecchie umane e livelli con le parti nascoste ricostruite. Il vecchio esperimento con le palpebre sovrapposte resta archiviato, non approvato come stile di produzione.
+
+[Dettagli e limiti dello studio](character/artwork-fit/README.md).

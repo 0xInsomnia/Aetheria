@@ -1,0 +1,27 @@
+name: Aetheria — verifiche 2D
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  rig-and-app:
+    name: Test rig e sintassi
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test unitari motori 2D
+        run: node --test tests/*.test.mjs character/tests/*.test.mjs
+      - name: Verifica giunzioni e sprite placeholder
+        run: node character/tools/validate-rig.mjs
+      - name: Controllo sintassi moduli web
+        run: |
+          node --check src/room-avatar-preview.mjs
+          node --check character/demo/demo.mjs
+          node --check character/src/renderer-canvas.mjs

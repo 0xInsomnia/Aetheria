@@ -108,3 +108,14 @@ Prossimo checkpoint: artwork master con volto e orecchie umane; occhi e palpebre
 - Nuovo test Chromium `tests/face-study-browser.mjs` su viewport 390×844 e 1280×900: verifica immagine caricata, pixel realmente disegnati nel layer occhi, controlli e assenza di overflow. Integrato in GitHub Actions.
 - **Limiti:** la chiusura degli occhi è ricostruita proceduralmente; ancora imperfetta e non adatta alla produzione. Il ritratto non è un set completo di livelli e non è collegato alla gerarchia di ossa. I capelli non dispongono ancora delle parti nascoste ricostruite. Camminata, seduta, labiale e outfit non vengono risolti da questa prova.
 - Priorità successiva: ridisegnare palpebre e capelli come asset pittorici autonomi, importare le varianti nel rig e testare la coerenza con figura intera e stanza.
+
+## Alpha 0.11 — studio di allineamento anatomico (12 novembre 2026)
+
+- Aggiunto `character/artwork-fit/index.html`: strumento interattivo per associare le **28 ossa** del rig esistente a **28 punti anatomici** stimati sul concept semi-realistico pubblicato in passato. Permette vista figura intera/volto, filtri per regione, spostamento dei pivot, salvataggio locale ed esportazione JSON.
+- Aggiunto `character/artwork-fit/README.md` che documenta limiti e prerequisiti della nuova illustrazione in posa neutra.
+- Il vecchio esperimento di palpebre sull'immagine fissa **non è approvato** e rimane separato; non è stato promosso nell'app come rig definitivo.
+- Verificato localmente in Chromium su viewport 390×844 e 1280×900 con asset e rig serviti da fixture: caricamento, selezione occhi, zoom, esportazione JSON; nessun errore JavaScript. Questo non sostituisce una verifica su telefono fisico.
+- La mappa è in **bozza**. Il master attuale è in posa 3/4 con braccio esteso e presenta orecchie appuntite, non conformi alla direzione finale. I punti sono riferimenti di lavoro e non vanno applicati direttamente al rig dei 56 sprite senza un nuovo master frontale e la ricostruzione delle parti nascoste.
+- **Non completato**: arte pittorica in A-pose, occhi/viso realmente separati, animazione facciale naturale, 56 livelli definitivi. La versione attuale non deve essere descritta come un personaggio semirealistico completamente riggato.
+
+Prossima fase: costruzione del master neutro con orecchie umane e illustrazione separabile; poi verifiche di deformazione su testa, capelli e arti, prima di unire gli asset al rig.

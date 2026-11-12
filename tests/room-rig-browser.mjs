@@ -46,7 +46,7 @@ try{
     await page.waitForFunction(() => !!window.AetheriaFaceControls, null, {timeout:15000});
     await page.getByRole('button',{name:'Sorriso',exact:true}).click();
     await page.waitForFunction(() => window.AetheriaRoomRig?.getState().expression==='smile');
-    await page.getByRole('button',{name:'◉ Battito'}).click();
+    await page.locator('[data-face-command="blink"]').click();
     assert.match(await page.locator('#face-control-status').innerText(),/Battito/);
     await page.locator('#face-head-tilt').evaluate(input => {input.value='12';input.dispatchEvent(new Event('input',{bubbles:true}));});
     assert.equal(await page.locator('#face-head-tilt-value').innerText(),'12°');

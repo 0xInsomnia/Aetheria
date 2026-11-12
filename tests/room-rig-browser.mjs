@@ -42,6 +42,26 @@ try{
     });
     assert.ok(evidence.width>50&&evidence.height>evidence.width,JSON.stringify(evidence));
     assert.ok(evidence.opaque>40,'Rig must paint visible pixels: '+JSON.stringify(evidence));
+    // Alpha 0.9: facial actions drive the SAME live rig inside the room.
+    await page.waitForFunction(() => !!window.AetheriaFaceControls, null, {timeout:15000});
+    await page.getByRole('button',{name:'Sorriso',exact:true}).click();
+    await page.waitForFunction(() => window.AetheriaRoomRig?.getState().expression==='smile');
+    await page.getByRole('button',{name:'◉ Battito'}).click();
+    assert.match(await page.locator('#face-control-status').innerText(),/Battito/);
+    await page.locator('#face-head-tilt').evaluate(input => {input.value='12';input.dispatchEvent(new Event('input',{bubbles:true}));});
+    assert.equal(await page.locator('#face-head-tilt-value').innerText(),'12°');
+    await page.locator('#face-follow-pointer').check();
+    await page.locator('#room-v04').hover({position:{x:25,y:25}});
+    await page.waitForTimeout(400);
+    const zoom = await page.locator('#face-preview-canvas').evaluate(canvas => {
+      const d=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;
+      let pixels=0; for(let i=3;i<d.length;i+=80) if(d[i]>20)pixels++;
+      return pixels;
+    });
+    assert.ok(zoom>20,'Facial zoom must contain rendered rig pixels: '+zoom);
+    await page.getByRole('button',{name:'↺ Ripristina'}).click();
+    await page.waitForFunction(() => window.AetheriaRoomRig?.getState().expression==='neutral');
+    console.log('PASS face controls '+viewport.width+'px: '+zoom+' visible zoom samples');
     await page.getByRole('button',{name:'👋 Saluta'}).click();
     await page.getByLabel('Palette del rig').selectOption('nero-rosso');
     assert.equal((await page.evaluate(()=>window.AetheriaRoomRig.getState())).palette,'nero-rosso');

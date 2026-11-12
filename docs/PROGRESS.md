@@ -87,3 +87,15 @@ Creato il file originale generato e isolato **\`assets/aetheria-character-concep
 - La pipeline serve ancora esclusivamente il manichino tecnico. Il set artistico semi-realistico finale resta da produrre, suddividere e riggare; non abbiamo ancora dimostrato che la resa alta dei concept sia ottenibile in movimento con questi layer rigidi. Camminata/seduta non implementate.
 
 **Prossima milestone:** prima serie di layer realmente illustrati (testa, occhi e capelli) con pivot adattati, lasciando il resto temporaneamente provvisorio e validando la qualità in movimento.
+
+## Alpha 0.9 — interazioni facciali collegate al rig (12 novembre 2026)
+
+- Nuova sezione **Espressioni e sguardo** nella scheda Stanza, disponibile insieme alle modalità già presenti.
+- Nuovi comandi: espressioni neutra/sorridente/curiosa/sorpresa, battito palpebre, saluto, ripristino, inclinazione testa ±20°, sguardo che segue il tocco.
+- I pulsanti **Azioni** principali possono comandare il rig quando il manichino è selezionato. La scena illustrata non viene spacciata per articolata.
+- Aggiunta anteprima ravvicinata del volto da **frame del Canvas del rig stesso**.
+- Sincronizzazione fra controlli espressione e stato pubblico del rig. Mantenute le opzioni `prefers-reduced-motion`.
+- Eseguiti test Chromium (390×844 e 1280×900), controlli visivi Canvas, espressione, battito, inclinazione, tocco e reset; workflow `Aetheria — verifiche 2D` **success** sul commit `89a212187c432d1d74b72bd0988fa6d89f6ed8c3`. Pages build del medesimo commit **success**.
+- **Non ancora eseguiti:** validazione Android fisico, prova di performance con texture semi-realistiche ad alta definizione, rig finale su artwork definitivo. La prova grafica di chiusura palpebre ottenuta con ricostruzione automatica è stata giudicata insufficiente e non è stata caricata sul repository pubblico.
+
+Prossimo checkpoint: artwork master con volto e orecchie umane; occhi e palpebre pittorici su layer corretti; preparazione dei capelli separati; test di qualità delle occlusioni in un rig a ingrandimento, prima del corpo intero. Resta vietato copiare le reference private nella repository pubblica.

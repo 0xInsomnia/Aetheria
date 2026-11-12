@@ -51,7 +51,10 @@ try{
     await page.locator('#face-head-tilt').evaluate(input => {input.value='12';input.dispatchEvent(new Event('input',{bubbles:true}));});
     assert.equal(await page.locator('#face-head-tilt-value').innerText(),'12°');
     await page.locator('#face-follow-pointer').check();
-    await page.locator('#room-v04').hover({position:{x:25,y:25}});
+    await page.locator('#room-v04').evaluate(node => {
+      const rect=node.getBoundingClientRect();
+      node.dispatchEvent(new PointerEvent('pointermove',{bubbles:true,clientX:rect.left+rect.width*.7,clientY:rect.top+rect.height*.45}));
+    });
     await page.waitForTimeout(400);
     const zoom = await page.locator('#face-preview-canvas').evaluate(canvas => {
       const d=canvas.getContext('2d').getImageData(0,0,canvas.width,canvas.height).data;

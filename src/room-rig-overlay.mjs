@@ -18,6 +18,8 @@ function init() {
   const figure = document.getElementById('room-avatar-preview');
   const panel = document.querySelector('[data-panel="room"] .avatar-preview-controls');
   if (!scene || !figure || !panel) return;
+  const release=document.querySelector('.tag');
+  if(release) release.textContent='ALPHA 0.8';
 
   const storageKey = 'aetheria.rig-room-v08';
   let saved = {};

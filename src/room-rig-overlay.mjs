@@ -172,10 +172,14 @@ function init() {
   requestAnimationFrame(draw);
   sync();
   Object.defineProperty(window,'AetheriaRoomRig',{value:Object.freeze({
-    version:'0.8.0',
+    version:'0.9.0',
     getState:()=>({mode:state.mode,palette:state.palette,expression:state.expression,ready:state.ready,error:state.error}),
     setMode:changeMode,
-    wave:()=>animator?.play('wave')
+    wave:()=>animator?.play('wave'),
+    blink:()=>animator?.triggerBlink(),
+    setExpression:(name)=>animator?.setExpression(name)??false,
+    setGaze:(x,y)=>animator?.setGaze(x,y),
+    setTilt:(degrees)=>animator?.setHeadTilt(degrees)
   }),configurable:false});
 }
 if (document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});

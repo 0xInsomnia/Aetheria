@@ -62,3 +62,17 @@ La [demo indipendente delle animazioni](https://0xinsomnia.github.io/Aetheria/ch
 La Pull Request [#1](https://github.com/0xInsomnia/Aetheria/pull/1) ha aggiunto la cartella `character/` con scheletro gerarchico, 56 livelli segnaposto, Canvas 2D, gesti, battito occhi, capigliatura, espressioni e maschere di colore. **Non è ancora il personaggio semi-realistico definitivo**. La demo del rig e l'avatar della stanza sono due prototipi grafici distinti, non ancora collegati.
 
 Sono attive verifiche automatiche in `.github/workflows/checks.yml` (test unitari, validator delle giunzioni, sintassi JS). Prima di inserire nuove illustrazioni serve adattare pivot e maschere agli asset veri e valutare la deformazione artistica.
+
+## Alpha 0.8 — rig 2D attivabile nella stanza (12 novembre 2026)
+
+La vista **Stanza** ora ha un selettore sotto i controlli del personaggio:
+- **Illustrata** (predefinita): mantiene il concept semi-realistico statico, come nell'Alpha 0.7.
+- **Rig animato · demo**: carica *davvero* i 56 sprite segnaposto e li disegna con il renderer Canvas, sopra lo stesso sfondo indipendente. Si possono provare il saluto, il battito delle palpebre, quattro espressioni e le palette nero/viola, nero/rosso e chiaro/azzurro. Il movimento continuo include respirazione e capelli, dove consentito dalle preferenze di accessibilità.
+
+I controlli per spostare la figura fra centro, letto, scrivania e divano rimangono disponibili per entrambe le rappresentazioni. L'app mantiene la figura illustrata come scelta iniziale e torna ad essa anche se gli asset del rig non caricano.
+
+**Limite da evidenziare:** il rig è articolato, ma usa ancora il **manichino segnaposto**: non ha le illustrazioni semi-realistiche definitive, né camminata o posa seduta. L'avatar statico illustrato **non** viene magicamente animato.
+
+Nuovi file: \`src/room-rig-overlay.mjs\` e \`src/room-rig-overlay.css\`. Il test \`tests/room-rig-browser.mjs\` usa Playwright + Chromium con le immagini reali del repository e verifica mobile e desktop. Il workflow GitHub Actions ha completato i test in entrambe le viewport con esito positivo.
+
+[Apri Aetheria Alpha 0.8](https://0xinsomnia.github.io/Aetheria/?v=0.8)

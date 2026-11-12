@@ -3,7 +3,7 @@
   'use strict';
   const start = () => {
     const rig = window.AetheriaRoomRig;
-    const label = document.querySelector('.tag'); if (label) label.textContent='ALPHA 0.9';
+    const label = document.querySelector('.tag'); if (label) label.textContent='ALPHA 0.10';
     const stage = document.getElementById('room-v04');
     const room = document.querySelector('[data-panel="room"]');
     const controls = room?.querySelector('.room-rig-controls');

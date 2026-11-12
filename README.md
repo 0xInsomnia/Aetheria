@@ -54,3 +54,11 @@ Questa è una **panoramica tecnica vettoriale** e non la stanza semi-realistica 
 ## Alpha 0.6 — figura separata nella stanza
 
 Una prima figura raster provvisoria è ora **indipendente** dal panorama della stanza. Apri la scheda **Stanza**, usa il controllo **Mostra Aetheria nella stanza** e scegli Centro, Letto, Scrivania o Divano per verificare il posizionamento. La figura non cammina: si tratta soltanto di transizioni di posizione e di una lieve oscillazione dell'immagine completa. Non c'è ancora un rig articolato, e il design provvisorio non rispetta ancora tutti i dettagli approvati (inclusa la forma delle orecchie). Le immagini originali dell'utente non sono state pubblicate. [Dettagli e verifiche](docs/CHARACTER_PREVIEW_V06.md).
+
+## Alpha 0.7 — pipeline animazioni disponibile (12 novembre 2026)
+
+La [demo indipendente delle animazioni](https://0xinsomnia.github.io/Aetheria/character/demo/) è raggiungibile anche da **Azioni → Apri il banco prova delle animazioni** nell'app principale.
+
+La Pull Request [#1](https://github.com/0xInsomnia/Aetheria/pull/1) ha aggiunto la cartella `character/` con scheletro gerarchico, 56 livelli segnaposto, Canvas 2D, gesti, battito occhi, capigliatura, espressioni e maschere di colore. **Non è ancora il personaggio semi-realistico definitivo**. La demo del rig e l'avatar della stanza sono due prototipi grafici distinti, non ancora collegati.
+
+Sono attive verifiche automatiche in `.github/workflows/checks.yml` (test unitari, validator delle giunzioni, sintassi JS). Prima di inserire nuove illustrazioni serve adattare pivot e maschere agli asset veri e valutare la deformazione artistica.

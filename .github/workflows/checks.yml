@@ -27,6 +27,9 @@ jobs:
           node --check src/room-face-controls.mjs
           node --check tests/room-rig-browser.mjs
           node --check tests/face-study-browser.mjs
+          node --check tests/pose-lab-browser.mjs
+          node --check character/pose-lab/studio.mjs
+          node --check character/pose-lab/core.mjs
           node --check character/demo/demo.mjs
           node --check character/src/renderer-canvas.mjs
 
@@ -47,3 +50,4 @@ jobs:
         run: |
           node tests/room-rig-browser.mjs
           node tests/face-study-browser.mjs
+          node tests/pose-lab-browser.mjs

@@ -23,5 +23,23 @@ jobs:
       - name: Controllo sintassi moduli web
         run: |
           node --check src/room-avatar-preview.mjs
+          node --check src/room-rig-overlay.mjs
+          node --check tests/room-rig-browser.mjs
           node --check character/demo/demo.mjs
           node --check character/src/renderer-canvas.mjs
+
+  browser-smoke:
+    name: Browser reale — rig integrato
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Installazione Playwright
+        run: npm install --no-save playwright@1.56.1
+      - name: Installazione Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Test interazione su mobile e desktop
+        run: node tests/room-rig-browser.mjs

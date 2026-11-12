@@ -67,3 +67,12 @@ Commit asset: `e0bb8f1fc9cb732379ebbf26037a020eb8e5c5da`. Commit interfaccia: `2
 Creato il file originale generato e isolato **\`assets/aetheria-character-concept-v06.webp\`** (trasparenza), e aggiunti **\`src/room-avatar-preview.css\`** e **\`src/room-avatar-preview.mjs\`**. Nella scheda Stanza, l'avatar può apparire come livello separato dal fondale e viene posizionato in quattro zone (centro, letto, scrivania, divano); è possibile mostrarlo o nasconderlo e la preferenza viene conservata localmente. La scena Dialogo continua a usare il concept storico.
 
 **Nessuna animazione articolata:** la figura è un unico ritaglio raster, lo spostamento è una traslazione e le piccole oscillazioni sono effetti sul frame completo. Il ritaglio ha difetti visivi e la figura non è ancora fedele al master approvato (in particolare orecchie umane). È uno *stand-in tecnico* da sostituire, non un modello finale. Sono stati verificati caricamento immagine, posizionamento, hide/show e assenza di errori JS in fixture Chromium 1280×900 e 390×844. Il deploy Pages e il dispositivo Android fisico richiedono verifica separata. Vedi docs/CHARACTER_PREVIEW_V06.md.
+
+## Alpha 0.7 — integrazione della pipeline del collega (12 novembre 2026)
+
+- Esaminata e integrata la Pull Request [#1](https://github.com/0xInsomnia/Aetheria/pull/1), con commit merge `fc0eee1442d6c732af3c0751be87e8460577a3e9`. Contiene la pipeline indipendente nella cartella `character/`.
+- Aggiunto in **Azioni** un collegamento al [laboratorio delle animazioni](https://0xinsomnia.github.io/Aetheria/character/demo/), senza sostituire lo sprite statico della stanza.
+- Aggiornata l'etichetta dell'app a `ALPHA 0.7`; la versione del modulo avatar rimane v0.6.
+- Aggiunto workflow GitHub Actions `.github/workflows/checks.yml`: `node --test tests/*.test.mjs character/tests/*.test.mjs`, validatore delle giunzioni e controlli sintassi dei moduli. Prima esecuzione GitHub Actions **success** (run 43167181290).
+- **Limite da non nascondere:** il rig usa 56 sprite segnaposto schematici. Nessun livello semi-realistico dipinto è ancora stato importato, nessuna camminata reale, nessuna posa seduta. L'immagine provvisoria presente nella stanza resta un elemento separato, non riggato.
+- Prossima priorità: realizzazione dell'artwork master con orecchie umane e separazione vera dei livelli (volto, capelli, busto, arti, vestiti), importazione nel rig e verifica della resa mobile. Non confondere la demo tecnica con la qualità finale desiderata.

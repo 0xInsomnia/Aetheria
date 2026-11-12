@@ -119,3 +119,12 @@ Prossimo checkpoint: artwork master con volto e orecchie umane; occhi e palpebre
 - **Non completato**: arte pittorica in A-pose, occhi/viso realmente separati, animazione facciale naturale, 56 livelli definitivi. La versione attuale non deve essere descritta come un personaggio semirealistico completamente riggato.
 
 Prossima fase: costruzione del master neutro con orecchie umane e illustrazione separabile; poi verifiche di deformazione su testa, capelli e arti, prima di unire gli asset al rig.
+
+## Alpha 0.12 — scomposizione in parti esportabili
+
+- Integrata la Pull Request [#2](https://github.com/0xInsomnia/Aetheria/pull/2), `character/pose-lab/`.
+- Due maschere poligonali iniziali editabili: `head` e `hair_back`, ognuna con pivot. `body` contiene i pixel rimanenti del concept. Nessun file reference privato copiato nel repository.
+- Canvas mostra originale, ricomposizione e movimento distinto di testa e chioma; un editor consente di trascinare i vertici, ripristinare e salvare localmente i contorni.
+- È possibile scaricare i tre pezzi in PNG trasparente e le coordinate JSON.
+- Test locale Node: 4/4 passati. Verifica grafica offline con PIL: 0 pixel differenti a posa zero; con rotazioni si vedono fessure. Navigazione automatica del browser nell'ambiente locale non permessa; test via GitHub Actions aggiunti successivamente.
+- **Non è il master definitivo:** posa dinamica, orecchie ancora appuntite, braccio proteso. Prima del rig completo occorre una illustrazione neutra originale e ricostruire porzioni non visibili di collo, chioma e arti. Nessun blink posticcio reintrodotto.

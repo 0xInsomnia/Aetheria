@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aetheria · Character layers · Alpha 0.12</title>
+<style>
+:root{color-scheme:dark;--accent:#a778f5;--panel:#1f1b30;--muted:#b5a9cd}*{box-sizing:border-box}
+body{margin:0;font:15px/1.5 system-ui,-apple-system,sans-serif;background:radial-gradient(circle at 33% 15%,#352052 0,#110d20 58%);color:#f4edff;min-height:100dvh}
+header{padding:18px clamp(16px,4vw,40px);border-bottom:1px solid #5a477b;background:#171226a8}
+h1{margin:0;font-size:clamp(22px,3vw,30px)}.tag{font-size:11px;color:#e6cffd;border:1px solid #9878bb;border-radius:40px;padding:3px 8px;vertical-align:middle}
+header p{margin:5px 0 0;color:var(--muted);max-width:950px}
+main{display:grid;grid-template-columns:minmax(340px,1.1fr) minmax(275px,.85fr);max-width:1250px;gap:20px;margin:auto;padding:20px}
+.stage{background:linear-gradient(140deg,#1d142f,#0a0916);border:1px solid #594875;border-radius:18px;min-width:0;overflow:hidden;display:flex;flex-direction:column;align-items:center;box-shadow:0 18px 40px #0503088a}
+canvas{display:block;width:min(100%,510px);aspect-ratio:2/3;height:auto;max-height:78dvh;touch-action:none;cursor:crosshair}
+.stage-footer{width:100%;background:#1b1529;padding:9px 15px;font-size:12px;color:#cfc2de}
+.controls{display:grid;gap:13px;align-content:start}.panel{background:var(--panel);border:1px solid #5f4c7b;padding:15px;border-radius:16px}
+h2{font-size:15px;margin:0 0 10px}p{margin:6px 0 12px;color:var(--muted)}label{display:block;font-size:13px;margin-bottom:8px}
+.row{display:flex;flex-wrap:wrap;gap:8px}.row>button{flex:1}
+button,select{border:1px solid #82659f;border-radius:11px;background:#302343;color:#fff;padding:10px 12px;font:inherit;cursor:pointer;min-height:42px}
+button[aria-pressed=true],button.primary{background:#8153b3;border-color:#c49bf9}button:disabled{opacity:.5;cursor:not-allowed}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #fff;outline-offset:2px}
+input[type=range]{display:block;width:100%;accent-color:var(--accent)}input[type=checkbox]{accent-color:var(--accent)}select{width:100%;margin:5px 0 8px}
+.warning{font-size:12px;color:#ffd1ac;border-left:3px solid #ffad61;padding:8px 12px;background:#57342045}
+.stat{font-size:12px;color:#e3d2f6;white-space:pre-wrap;margin:8px 0}
+a{color:#ddb7ff}.inline{display:flex;justify-content:space-between;gap:10px;align-items:center}
+@media(max-width:800px){main{grid-template-columns:1fr;padding:12px;gap:12px}canvas{max-height:66dvh}.stage{max-width:100%}}
+</style>
+</head><body>
+<header><h1>Aetheria <span class="tag">Alpha 0.12 · Studio livelli</span></h1><p>Prima scomposizione materiale di un concept in testa, capelli posteriori e corpo. I PNG sono esportabili e i punti del taglio sono modificabili. <strong>Non è ancora il modello definitivo.</strong></p></header>
+<main>
+<section class="stage" aria-label="Anteprima del personaggio composto da parti">
+ <canvas id="art" width="768" height="1152" aria-label="Figura 2D e maschere di ritaglio"></canvas>
+ <div class="stage-footer" id="state" role="status">Caricamento degli elementi…</div>
+</section>
+<div class="controls">
+ <section class="panel"><h2>Composizione e movimento</h2>
+ <div class="row" id="modes"><button data-mode="original">Originale</button><button data-mode="parts" aria-pressed="true">Livelli separati</button><button data-mode="masks">Maschere / editor</button></div>
+ <label>Inclinazione reale della testa <output id="head-value">0°</output><input id="head" type="range" min="-8" max="8" value="0" step=".5"></label>
+ <label>Movimento della chioma <output id="hair-value">0°</output><input id="hair" type="range" min="-14" max="14" value="0" step=".5"></label>
+ <label><input type="checkbox" id="idle"> Oscillazione continua di prova</label>
+ <div class="row"><button id="reset-pose">Posa iniziale</button><button id="reset-all">Ripristina maschere</button></div>
+ </section>
+ <section class="panel"><h2>Correggi i tagli</h2><p>Seleziona una parte, attiva <strong>Maschere / editor</strong> e trascina i vertici viola direttamente sulla figura. La sorgente resta invariata.</p>
+ <label for="part">Maschera selezionata</label><select id="part"><option value="head">Testa / volto</option><option value="hair_back">Capelli posteriori</option></select>
+ <label><input id="pivots" type="checkbox" checked> Mostra perni e sagome</label>
+ <div class="stat" id="stats"></div>
+ </section>
+ <section class="panel"><h2>Esporta pezzi reali</h2><p>Esporta PNG trasparenti a risoluzione del concept. Il terzo pezzo (corpo) contiene tutti i pixel non attribuiti agli altri due.</p>
+ <div class="row"><button data-export="head">PNG testa</button><button data-export="hair_back">PNG capelli</button><button data-export="body">PNG corpo</button></div>
+ <div class="row" style="margin-top:9px"><button id="export-json" class="primary">Scarica maschere + pivot JSON</button></div>
+ <p class="warning">Limite artistico: il concept di partenza è in posa dinamica, con orecchie appuntite. Questa prova serve a verificare tagli e gerarchia dei pezzi. Per una deformazione di qualità occorre ridisegnare le superfici nascoste e preparare una posa neutra con orecchie umane. Il vecchio finto blink è escluso.</p>
+ </section>
+ <section class="panel"><h2>Collegamento al progetto</h2><p>Il <a href="../demo/">rig a 28 ossa</a> resta separato. Questa prova fornisce due primi ritagli veri e i relativi pivot, che andranno adattati al rig quando il master artistico sarà approvato.</p><a href="../../">Torna all’app principale</a></section>
+</div>
+</main><script type="module" src="./studio.mjs"></script></body></html>
